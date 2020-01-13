@@ -1,0 +1,194 @@
+html, body{
+	margin-left:15px; margin-right:15px; 
+	padding:0px; 
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a, .dropbtn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+li.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+.text-center{
+    text-align: center;
+}
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+fieldset{
+  height: 280px;
+  width: 823px;
+  color: black;
+  font-size: 20px;
+  background-color: white;
+}
+.thongtinsinhvien{
+  color: white;
+  padding-top: 2%;
+  height: 355px;
+  width:100%;
+  font-size: 15px;
+  background-color: #aaaaaa;
+}
+.country1{
+  height: 40px;
+   width: 250px;
+   font-size: 20px;
+   border-radius: 12px;
+}
+.country{
+  height: 40px;
+   width: 250px;
+   font-size: 20px;
+}
+legend{
+  text-align: center;
+}
+input{
+  padding: 5px;
+   height: 40px;
+   width: 250px;
+   font-size: 20px;
+}
+select {
+	width: 250px;
+	border: 1px solid #666; 
+	border-radius: 5px; 
+	padding: 4px; 
+	font-size: 16px;
+}
+
+ #subject{
+   padding: 5px;
+   height: 40px;
+   width: 250px;
+   font-size: 20px;
+ }
+ #loc{
+  height: 50px;
+  width: 150px;
+  padding-top: 10px;
+  color: #FFFFFF;
+  background-color: #0775d3;
+  border-radius: 12px;
+  font-size: 22px;
+ }
+ #ketqua{
+   padding-top: 10px;
+ }
+/*  select{ */
+/*   border-bottom:1px solid white; */
+/* 	background:none repeat scroll 0 0 #0775d3; */
+
+/* 	color: #FFFFFF; */
+/*  } */
+table {   
+	border-collapse:collapse;
+	border-bottom:1px solid gray;
+	font-family: Tahoma,Verdana,Segoe,sans-serif;
+	width:100%;
+}
+ 
+th {
+	border-bottom:1px solid gray;
+	background:none repeat scroll 0 0 #0775d3;
+	padding:10px;
+	color: #FFFFFF;
+}
+
+tr {
+	border-top:1px solid gray;
+	text-align:center;	
+}
+
+/* /* add some css code here*/ */
+
+/* .topnav { */
+/*   overflow: auto; */
+/*   background-color: #333; */
+/* } */
+
+/* .topnav a { */
+/*   float: left; */
+/*   color: #f2f2f2; */
+/*   text-align: center; */
+/*   padding: 14px 16px; */
+/*   text-decoration: none; */
+/*   font-size: 17px; */
+/* } */
+
+/* .topnav a:hover { */
+/*   background-color: #ddd; */
+/*   color: black; */
+/* } */
+
+/* .topnav a.active { */
+/*   background-color: #4CAF50; */
+/*   color: white; */
+/* } */
+
+/* /* the end of add css*/ */
+ 
+tr:nth-child(even) {background: #FFFFFF}
+tr:nth-child(odd) {background: #BBBBBB}	
+ 
+#wrapper {width: 100%; margin-top: 0px; }
+#header {width: 100%; background: #0775d3; margin-top: 0px; padding:15px 0px 0px 0px;/*   background-image: url("../images/dhxd.jpg");  */}
+
+#header h2 {width: 100%; margin:auto; color: #FFFFFF;}
+#container {width: 100%; margin:auto}
+#container h3 {color: #000;}
+#container #content {margin-top: 20px;}
+
+.add-student-button {
+	border: 1px solid #666; 
+	border-radius: 5px; 
+	padding: 4px; 
+	font-size: 12px;
+	font-weight: bold;
+	width: 120px; 
+	padding: 5px 10px; 
+	
+	margin-bottom: 15px;
+	background: #cccccc;
+}
