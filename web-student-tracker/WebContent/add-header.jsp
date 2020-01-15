@@ -8,6 +8,7 @@
 <link rel="icon" href="images/LOGO_DHXD.png" type="image/gif" sizes="16x16">
 
 <link type="text/css" rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <!-- using jstl tags instead of using jsp scriptlet -->
 
@@ -17,10 +18,11 @@
 
 	<div id="wrapper">
 		<div id="header" >
-			<h2>Trường đại học Xây Dựng</h2>
-			<a href="../StudentControllerServlet"><img src="../images/LOGO_DHXD.png" width="80px" height="80px" style="float:left" /></a>
+			<div class="tieude"><a href="../login.jsp" class="w3-button w3-black">Đăng xuất</a></div>
+			<a href="../StudentControllerServlet"><img src="../images/LOGO_DHXD.png" width="80px" height="80px" class="tieude1" /></a>
 			
-			 <p style="color:white" >55 Giải Phóng - Hai Bà Trưng - Hà Nội <br/> SĐT: 0986579099</p>
+			 <div class="tieude2">Trường đại học Xây Dựng</div>
+			 <p style="color:white;margin-top:0px;" >55 Giải Phóng - Hai Bà Trưng - Hà Nội <br/> SĐT: 0986579099</p>
 			 <br/>
 		
 		</div>
