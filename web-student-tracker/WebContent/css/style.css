@@ -70,6 +70,12 @@ fieldset{
   font-size: 15px;
   background-color: #aaaaaa;
 }
+.tieude{
+	float:right;
+}
+.tieude1{
+	float:left;
+}
 .country1{
   height: 40px;
    width: 250px;

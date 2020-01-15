@@ -59,11 +59,12 @@ public class StudentControllerServlet extends HttpServlet {
 			
 			//route to the appropriate mathod
 			switch (theCommand) {
-			
+			case "login":
+				checkAccount(request, response);
+				break;
 			case "LIST":
 				listStudents(request, response);
 				break;
-				
 			case "ADD":
 				addStudent(request,response);
 				break;
@@ -82,7 +83,6 @@ public class StudentControllerServlet extends HttpServlet {
 			
 			}
 		// list the sudents ... in MVC fashion
-		listStudents(request, response);
 		}
 		catch (Exception exc) {
 			throw new ServletException(exc);
@@ -209,7 +209,19 @@ public class StudentControllerServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/StudentManage/list-students.jsp");
 		dispatcher.forward(request, response);
 	}
+	private void checkAccount(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String userName = request.getParameter("username");
+		String userPass = request.getParameter("userpass");
+		if (userName.equals("admin") && userPass.equals("admin")) {
+			listStudents(request, response);
+		}else {
+			
+			String warning = "Tài khoản hoặc mật khẩu sai!";
+			request.setAttribute("Warning", warning);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+			dispatcher.forward(request, response);
+		}
 	
-	
+	}
 
 }

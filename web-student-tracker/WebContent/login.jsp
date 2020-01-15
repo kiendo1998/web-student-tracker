@@ -16,9 +16,11 @@
 	    </div>
 	
 	    <!-- Login Form -->
-	    <form>
-	      <input type="text" id="login" class="fadeIn second" name="login" placeholder="Tên đăng nhập">
-	      <input type="text" id="password" class="fadeIn third" name="login" placeholder="Mật khẩu">
+	    <form action="StudentControllerServlet" method="GET">
+	    <input type="hidden" name="command" value="login"/>
+	    <input type="text"  class= "noborder" name="warning" placeholder="Mời nhập thông tin" value="${Warning}" readonly/>
+	      <input type="text" class="fadeIn second" name="username" placeholder="TÊN ĐĂNG NHẬP">
+	      <input type="password" type="text" class="fadeIn third" name="userpass" placeholder="MẬT KHẨU">
 	      <input type="submit" class="fadeIn fourth" value="Đăng nhập">
 	    </form>
 	
