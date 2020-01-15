@@ -20,8 +20,8 @@
 		<div id="header" >
 			<div class="tieude"><a href="login.jsp" class="w3-button w3-black">Đăng xuất</a></div>
 			<a href="StudentControllerServlet"><img src="images/LOGO_DHXD.png" width="80px" height="80px" class="tieude1" /></a>
-			<div>Trường đại học Xây Dựng</div>
-			 <p style="color:white" >55 Giải Phóng - Hai Bà Trưng - Hà Nội <br/> SĐT: 0986579099</p>
+			<div class="tieude2">Trường đại học Xây Dựng</div>
+			 <p style="color:white;margin-top:0px;" >55 Giải Phóng - Hai Bà Trưng - Hà Nội <br/> SĐT: 0986579099</p>
 			 <br>
 		
 		</div>

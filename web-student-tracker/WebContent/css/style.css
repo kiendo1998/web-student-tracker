@@ -76,6 +76,10 @@ fieldset{
 .tieude1{
 	float:left;
 }
+.tieude2{
+	font-size: 25px;
+	color: white;
+}
 .country1{
   height: 40px;
    width: 250px;
