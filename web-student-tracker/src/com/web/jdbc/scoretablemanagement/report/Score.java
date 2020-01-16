@@ -13,9 +13,10 @@ public class Score {
 	
 	
 	
-	public Score(int masv, float dqt, float diemthi, int scoreid) {
+	public Score(int masv, String tensv, float dqt, float diemthi, int scoreid) {
 		super();
 		this.masv = masv;
+		this.tensv = tensv;
 		this.dqt = dqt;
 		this.diemthi = diemthi;
 		this.scoreid = scoreid;

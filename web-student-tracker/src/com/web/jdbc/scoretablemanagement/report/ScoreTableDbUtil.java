@@ -148,7 +148,7 @@ ScoreTable theScoretable = null;
 			//get connection to database
 			myConn = dataSource.getConnection();
 			//create sql to get selected student
-			String sql = "select * from dangky where madk=?";
+			String sql = "select * from dangky inner join monhoc on dangky.mamh = monhoc.mamh where madk=?";
 			//create prepared statement
 			myStmt = myConn.prepareStatement(sql);
 			
@@ -162,8 +162,9 @@ ScoreTable theScoretable = null;
 				int scoretableid = myRs.getInt("madk");
 				int mamh = myRs.getInt("mamh");
 				String kyhoc = myRs.getString("kyhoc");
+				String tenmh = myRs.getString("tenmh");
 				//use the studentId during construction
-				theScoretable = new ScoreTable(scoretableid, mamh, kyhoc);
+				theScoretable = new ScoreTable(scoretableid, mamh, kyhoc, tenmh);
 				
 			}
 			else {
@@ -408,7 +409,7 @@ List<Score> scores = new ArrayList<>();
 		//get a connection
 		myConn = dataSource.getConnection();
 		//create sql statement
-		String sql = "select id,masv,diemqt,diemthi from diem where madk=?";
+		String sql = "select id,diem.masv,tensv,diemqt,diemthi from diem inner join sinhvien on diem.masv=sinhvien.masv where madk=?";
 		
 		myStmt = myConn.prepareStatement(sql);
 		
@@ -419,12 +420,13 @@ List<Score> scores = new ArrayList<>();
 		//process result set
 		while (myRs.next()) {
 			//retrieve data from result set row
-			int masv = myRs.getInt("masv");
+			int masv = myRs.getInt("diem.masv");
+			String tensv = myRs.getString("tensv");
 			int scoreid = myRs.getInt("id");
 			float dqt = myRs.getFloat("diemqt");
 			float diemthi = myRs.getFloat("diemthi");
 			//create new student object
-			Score tempScore = new Score(masv, dqt, diemthi,scoreid);
+			Score tempScore = new Score(masv,tensv, dqt, diemthi,scoreid);
 			//add it to the list of sudents
 			scores.add(tempScore);
 		}
