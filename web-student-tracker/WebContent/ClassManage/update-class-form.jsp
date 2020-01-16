@@ -41,12 +41,6 @@
 					
 					</tr>
 					<tr>
-						<td><label>Loại lớp:</label></td>
-						<td><input type="text" name="loailop" 
-						           value="${THE_CLASS.loailop}"/></td>
-					
-					</tr>
-					<tr>
 						<td><label></label></td>
 						<td><input type="submit" value="Lưu" class="save" /></td>
 					

@@ -34,8 +34,8 @@ public class ClassDbUtil {
             //
             if (theSearchName != null && theSearchName.trim().length() > 0) {
                 // create sql to search for class by name
-				  String sql = "select MaLop,TenLop,class.MaKhoa,TenKhoa,SiSo,LoaiLop" +
-				  " from class inner join faculity on class.MaKhoa = faculity.MaKhoa " +
+				  String sql = "select MaLop,TenLop,class.MaKhoa,TenKhoa,SiSo" +
+				  " from lop inner join khoa on lop.MaKhoa = khoa.MaKhoa " +
 				  " where TenLop like ?";
 				 
                 // create prepared statement
@@ -47,8 +47,8 @@ public class ClassDbUtil {
                 
             } else {
                 // create sql to get all class
-                String sql = "select MaLop,TenLop,class.MaKhoa,TenKhoa,SiSo,LoaiLop "
-                		  +  "from class inner join faculity on class.MaKhoa = faculity.MaKhoa"
+                String sql = "select MaLop,TenLop,class.MaKhoa,TenKhoa,SiSo "
+                		  +  "from lop inner join khoa on lop.MaKhoa = khoa.MaKhoa"
                 		  + "order by MaLop";
                 // create prepared statement
                 myStmt = myConn.prepareStatement(sql);
@@ -66,10 +66,9 @@ public class ClassDbUtil {
                 int makhoa  = myRs.getInt("MaKhoa");
                 String tenkhoa = myRs.getString("TenKhoa");
                 int siso = myRs.getInt("SiSo");
-                boolean loailop = myRs.getBoolean("LoaiLop");
                 
                 // create new class object
-                Class tempClass = new Class(malop, tenlop, makhoa, tenkhoa, siso, loailop);
+                Class tempClass = new Class(malop, tenlop, makhoa, tenkhoa, siso);
                 
                 // add it to the list of classes
                 classes.add(tempClass);            
@@ -91,7 +90,7 @@ public class ClassDbUtil {
 			//getconnection to database
 			myConn = dataSource.getConnection();
 			//create sql to delete Class
-			String sql = "delete  from class "
+			String sql = "delete  from lop "
 					+ " where MaLop=?";
 			//prepare statement
 			myStmt = myConn.prepareStatement(sql);
@@ -135,8 +134,8 @@ public class ClassDbUtil {
 		//get db connection
 		myConn = dataSource.getConnection();
 		//create SQL update statement
-		String sql=" update class "
-				+ "set tenlop=?,makhoa=?,siso=?,loailop=? "
+		String sql=" update lop "
+				+ "set tenlop=?,makhoa=?,siso=? "
 				+ "where malop=?";
 		//prepare statement
 		myStmt = myConn.prepareStatement(sql);
@@ -144,8 +143,7 @@ public class ClassDbUtil {
 		myStmt.setString(1, theClass.getTenlop());
 		myStmt.setInt(2, theClass.getMakhoa());
 		myStmt.setInt(3, theClass.getSiso());
-		myStmt.setBoolean(4, theClass.isLoailop());
-		myStmt.setInt(5,theClass.getMalop());
+		myStmt.setInt(4,theClass.getMalop());
 		//execute SQL statement
 		myStmt.execute();
 			}
@@ -169,8 +167,8 @@ Class theClass = null;
 			//get connection to database
 			myConn = dataSource.getConnection();
 			//create sql to get selected class
-			String sql = "select MaLop,TenLop,class.MaKhoa,TenKhoa,SiSo,LoaiLop"
-					+ " from class inner join faculity on class.MaKhoa = faculity.MaKhoa"
+			String sql = "select MaLop,TenLop,lop.MaKhoa,TenKhoa,SiSo"
+					+ " from lop inner join khoa on lop.MaKhoa = khoa.MaKhoa"
 					+ " where MaLop=?";
 			//create prepared statement
 			myStmt = myConn.prepareStatement(sql);
@@ -186,11 +184,10 @@ Class theClass = null;
 				int makhoa = myRs.getInt("MaKhoa");
 				String tenkhoa = myRs.getString("TenKhoa");
 				int siso = myRs.getInt("SiSo");
-				Boolean loailop = myRs.getBoolean("LoaiLop");
 				
 				
 				//use the classId during construction
-				theClass= new Class(malop, tenlop, makhoa, tenkhoa, siso, loailop);
+				theClass= new Class(malop, tenlop, makhoa, tenkhoa, siso);
 				
 			}
 			else {
@@ -218,15 +215,14 @@ Class theClass = null;
 			//get db connection
 			myConn = dataSource.getConnection();
 			//create sql for insert
-			String sql = "insert into class"
-			+ "(tenlop, makhoa,siso,loailop) "
-			+ "value (?, ?,?,?)"	;	
+			String sql = "insert into lop"
+			+ "(tenlop, makhoa,siso) "
+			+ "value (?, ?,?)"	;	
 			myStmt = myConn.prepareStatement(sql);
 			//set the param values for the student
 			myStmt.setString(1, theClass.getTenlop());
 			myStmt.setInt(2, theClass.getMakhoa());
 			myStmt.setInt(3, theClass.getSiso());
-			myStmt.setBoolean(4, theClass.isLoailop());
 			//execute sql insert
 			myStmt.execute();
 		}
@@ -249,8 +245,8 @@ List<Class> classes = new ArrayList<>();
 		//get a connection
 		myConn = dataSource.getConnection();
 		//create sql statement
-		String sql = "select MaLop,TenLop,class.MaKhoa,TenKhoa,LoaiLop,SiSo"
-				+ " from class inner join faculity on class.MaKhoa = faculity.MaKhoa";
+		String sql = "select MaLop,TenLop,lop.MaKhoa,TenKhoa,SiSo"
+				+ " from lop inner join khoa on lop.MaKhoa = khoa.MaKhoa";
 		
 		myStmt = myConn.createStatement();
 		//execute query
@@ -263,9 +259,8 @@ List<Class> classes = new ArrayList<>();
 			int makhoa = myRs.getInt("MaKhoa");
 			String tenkhoa = myRs.getString("TenKhoa");
 			int siso = myRs.getInt("SiSo");
-			boolean loailop = myRs.getBoolean("LoaiLop");
 			//create new class object
-			Class tempClass = new Class(malop, tenlop, makhoa, tenkhoa, siso, loailop);
+			Class tempClass = new Class(malop, tenlop, makhoa, tenkhoa, siso);
 			//add it to the list of class
 			classes.add(tempClass);
 		}

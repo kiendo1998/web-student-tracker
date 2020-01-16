@@ -29,7 +29,7 @@ public class StudentScoreDbUtil {
 		//get a connection
 		myConn = dataSource.getConnection();
 		//create sql statement
-		String sql = "select * from student order by tensv;";
+		String sql = "select * from sinhvien order by tensv;";
 		
 		myStmt = myConn.createStatement();
 		//execute query
@@ -42,10 +42,10 @@ public class StudentScoreDbUtil {
 			String ngaysinh = myRs.getString("ngaysinh");
 			String gioitinh = myRs.getString("gioitinh");
 			String diachi = myRs.getString("diachi");
-			int sotin = myRs.getInt("sotin");
-			float diemtichluy = myRs.getFloat("diemtichluy");
+			int malop = myRs.getInt("malop");
+			String sdt = myRs.getString("sdt");
 			//create new student object
-			StudentScore tempStudent = new StudentScore(masv, tensv, ngaysinh, gioitinh, diachi, sotin, diemtichluy);
+			StudentScore tempStudent = new StudentScore(masv, tensv, ngaysinh, gioitinh, diachi, malop, sdt);
 			//add it to the list of sudents
 			students.add(tempStudent);
 		}
@@ -118,9 +118,9 @@ public class StudentScoreDbUtil {
 		//get a connection
 		myConn = dataSource.getConnection();
 		//create sql statement
-		String sql = "select * from subject inner join scoretable "
-				+ "on subject.mamh=scoretable.mamh inner join score "
-				+ "on scoretable.scoretableid=score.scoretableid where masv=?;";
+		String sql = "select * from monhoc inner join dangky "
+				+ "on monhoc.mamh=dangky.mamh inner join diem "
+				+ "on dangky.madk=diem.madk inner join sinhvien on diem.masv=sinhvien.masv  where sinhvien.masv=?;";
 		
 
 		myStmt = myConn.prepareStatement(sql);
@@ -132,16 +132,15 @@ public class StudentScoreDbUtil {
 		//process result set
 		while (myRs.next()) {
 			//retrieve data from result set row
-			int mamh = myRs.getInt("scoretable.mamh");
+			int mamh = myRs.getInt("dangky.mamh");
 			String tenmh = myRs.getString("tenmh");
 			float dqt = myRs.getFloat("diemqt");
 			float diemthi = myRs.getFloat("diemthi");
-			float diemkt = myRs.getFloat("diemkt");
 			String kyhoc = myRs.getString("kyhoc");
-			int scoreid = myRs.getInt("scoreid");
+			int id = myRs.getInt("id");
 			int masv = myRs.getInt("masv");
 			//create new student object
-			StudentScore tempStudent = new StudentScore(masv,mamh, tenmh, dqt, diemthi, diemkt, kyhoc,scoreid);
+			StudentScore tempStudent = new StudentScore(masv,mamh, tenmh, dqt, diemthi, kyhoc,id);
 			//add it to the list of sudents
 			students.add(tempStudent);
 		}
@@ -183,7 +182,7 @@ public class StudentScoreDbUtil {
 			//get db connection
 			myConn = dataSource.getConnection();
 			//create sql for insert
-			String sql = "insert into student(TenSV,NgaySinh,GioiTinh,DiaChi)"
+			String sql = "insert into sinhvien(TenSV,NgaySinh,GioiTinh,DiaChi) "
 			+ "value (?, ?, ?,?)"	;	
 			myStmt = myConn.prepareStatement(sql);
 			//set the param values for the student
@@ -220,7 +219,7 @@ public class StudentScoreDbUtil {
 			//get connection to database
 			myConn = dataSource.getConnection();
 			//create sql to get selected student
-			String sql = "select * from student where masv=?";
+			String sql = "select * from sinhvien where masv=?";
 			//create prepared statement
 			myStmt = myConn.prepareStatement(sql);
 			
@@ -235,11 +234,11 @@ public class StudentScoreDbUtil {
 				String ngaysinh = myRs.getString("ngaysinh");
 				String gioitinh = myRs.getString("gioitinh");
 				String diachi = myRs.getString("diachi");
-				int sotin = myRs.getInt("sotin");
-				float diemtichluy = myRs.getFloat("diemtichluy");
+				int malop = myRs.getInt("malop");
+				String sdt = myRs.getString("sdt");
 				
 				//use the studentId during construction
-				theStudent = new StudentScore(masv, tensv, ngaysinh, gioitinh, diachi, sotin, diemtichluy);
+				theStudent = new StudentScore(masv, tensv, ngaysinh, gioitinh, diachi, malop, sdt);
 				
 			}
 			else {
@@ -277,7 +276,9 @@ public class StudentScoreDbUtil {
 			//get connection to database
 			myConn = dataSource.getConnection();
 			//create sql to get selected student
-			String sql = "select * from score where masv=? and scoreid=?;";
+			String sql = "select * from diem inner join dangky "
+					+ "on diem.madk=dangky.madk "
+					+ "where diem.masv=? and id=?;";
 			//create prepared statement
 			myStmt = myConn.prepareStatement(sql);
 			
@@ -289,12 +290,11 @@ public class StudentScoreDbUtil {
 			//retrieve data from result set row
 			if (myRs.next()) {
 				int masv = myRs.getInt("masv");
-				int scoreid = myRs.getInt("scoreid");
+				int id = myRs.getInt("id");
 				float dqt = myRs.getFloat("diemqt");
 				float diemthi = myRs.getFloat("diemthi");
-				float diemkt = myRs.getFloat("diemkt");
 				//use the studentId during construction
-				theStudent = new StudentScore(masv, dqt, diemthi, diemkt, scoreid);
+				theStudent = new StudentScore(masv, dqt, diemthi, id);
 				
 			}
 			else {
@@ -325,17 +325,15 @@ public class StudentScoreDbUtil {
 		//get db connection
 		myConn = dataSource.getConnection();
 		//create SQL update statement
-		String sql="update score "
-				+ "set diemqt=?,diemthi=?, diemkt=? "
-				+ "where masv=? and scoreid=?";
+		String sql="update diem "
+				+ "set diemqt=?,diemthi=? "
+				+ "where id=?";
 		//prepare statement
 		myStmt = myConn.prepareStatement(sql);
 		//set params
 		myStmt.setFloat(1, theStudent.getDqt());
 		myStmt.setFloat(2, theStudent.getDiemthi());
-		myStmt.setFloat(3, (float)(theStudent.getDiemthi()*0.7+0.3*theStudent.getDqt()));
-		myStmt.setInt(4, theStudent.getMasv());
-		myStmt.setInt(5, theStudent.getScoreid());
+		myStmt.setInt(3, theStudent.getId());
 		
 //		myStmt.setString(1, theStudent.getTensv());
 //		myStmt.setString(2, theStudent.getNgaysinh());
@@ -362,7 +360,7 @@ public class StudentScoreDbUtil {
 			//getconnection to database
 			myConn = dataSource.getConnection();
 			//create sql to delete student
-			String sql = "delete from student where masv=?";
+			String sql = "delete from sinhvien where masv=?";
 			//prepare statement
 			myStmt = myConn.prepareStatement(sql);
 			
@@ -389,13 +387,12 @@ public class StudentScoreDbUtil {
 			//getconnection to database
 			myConn = dataSource.getConnection();
 			//create sql to delete student
-			String sql = "delete from score where masv=? and scoreid=?;";
+			String sql = "delete from diem where id=?;";
 			//prepare statement
 			myStmt = myConn.prepareStatement(sql);
 			
 			//set params
-			myStmt.setInt(1, studentId);
-			myStmt.setInt(2, scoreId);
+			myStmt.setInt(1, scoreId);
 			//execute sql statement
 			myStmt.execute();
 		}
@@ -424,7 +421,7 @@ public class StudentScoreDbUtil {
             //
             if (theSearchName != null && theSearchName.trim().length() > 0) {
                 // create sql to search for students by name
-                String sql = "select * from student where  lower(tensv) like ?";
+                String sql = "select * from sinhvien where  lower(tensv) like ?";
                 // create prepared statement
                 myStmt = myConn.prepareStatement(sql);
                 // set params
@@ -434,7 +431,7 @@ public class StudentScoreDbUtil {
                 
             } else {
                 // create sql to get all students
-                String sql = "select * from student order by tensv";
+                String sql = "select * from sinhvien order by tensv";
                 // create prepared statement
                 myStmt = myConn.prepareStatement(sql);
             }
@@ -451,11 +448,11 @@ public class StudentScoreDbUtil {
 				String ngaysinh = myRs.getString("ngaysinh");
 				String gioitinh = myRs.getString("gioitinh");
 				String diachi = myRs.getString("diachi");
-				int sotin = myRs.getInt("sotin");
-				float diemtichluy = myRs.getFloat("diemtichluy");
+				int malop = myRs.getInt("malop");
+				String sdt = myRs.getString("sdt");
                 
                 // create new student object
-                StudentScore tempStudent = new StudentScore(masv, tensv, ngaysinh, gioitinh, diachi, sotin, diemtichluy);
+                StudentScore tempStudent = new StudentScore(masv, tensv, ngaysinh, gioitinh, diachi, malop, sdt);
                 
                 // add it to the list of students
                 students.add(tempStudent);            

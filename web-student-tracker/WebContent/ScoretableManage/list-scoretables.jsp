@@ -31,7 +31,7 @@
         
                 <input type="hidden" name="command" value="SEARCH" />
             
-                <font color="black">Tìm kiếm theo tên lớp:</font><input type="text" name="theSearchName"/>
+                <font color="black">Tìm kiếm theo tên môn học:</font><input type="text" name="theSearchName"/>
                 
                 <input type="submit" value="Tìm kiếm" class="add-student-button" />
             
@@ -43,8 +43,6 @@
 					<th>Mã Bảng Điểm</th>
 					<th>Mã Môn Học</th>
 					<th>Tên Môn Học</th>
-					<th>Mã Lớp</th>
-					<th>Tên Lớp</th>
 					<th>Kỳ Học</th>
 					<th>Hành động</th>
 				</tr>
@@ -68,8 +66,6 @@
 					<td>${tempScoretable.scoretableid}</td>
 					<td>${tempScoretable.mamh}</td>
 					<td>${tempScoretable.tenmh}</td>
-					<td>${tempScoretable.malop}</td>
-					<td>${tempScoretable.tenlop}</td>
 					<td>${tempScoretable.kyhoc}</td>
 					<td>
 <%-- 						<a href="${tempLink}">Cập nhật</a> --%>

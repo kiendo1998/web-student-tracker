@@ -23,7 +23,7 @@ public class FaculityControllerServlet extends HttpServlet {
 
 	private FaculityDbUtil faculityDbUtil;
 	
-	@Resource(name="jdbc/web_student_tracker")
+	@Resource(name="jdbc/quan_ly_sinh_vien")
 	private DataSource dataSource;
 	
 	
@@ -133,9 +133,10 @@ public class FaculityControllerServlet extends HttpServlet {
 		//read student infor from form data
 		int makhoa=Integer.parseInt(request.getParameter("faculityId"));
 		String tenkhoa = request.getParameter("tenkhoa");
+		String sdt = request.getParameter("sdt");
 		
 		//create a new student object
-		Faculity theFaculity = new Faculity(makhoa, tenkhoa);
+		Faculity theFaculity = new Faculity(makhoa, tenkhoa, sdt);
 		
 		//perform update on database
 		faculityDbUtil.updateFaculity(theFaculity);
@@ -173,10 +174,11 @@ public class FaculityControllerServlet extends HttpServlet {
 		// read student infor from form data
 		//int masv=Integer.parseInt(request.getParameter("masv"));
 		String tenkhoa = request.getParameter("tenkhoa");
+		String sdt = request.getParameter("sdt");
 		
 		
 		//create a new student object
-		Faculity theFaculity = new Faculity(tenkhoa);
+		Faculity theFaculity = new Faculity(tenkhoa,sdt);
 		
 		// add the student to the database
 		faculityDbUtil.addFaculity(theFaculity);

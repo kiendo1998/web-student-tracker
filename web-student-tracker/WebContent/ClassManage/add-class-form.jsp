@@ -37,11 +37,7 @@
 						<td><input type="text" name="siso" /></td>
 					
 					</tr>
-					<tr>
-						<td><label>Loại lớp:</label></td>
-						<td><input type="text" name="loailop" /></td>
-					
-					</tr>
+
 <!-- 					<tr> -->
 <!-- 						<td><label>Số tín:</label></td> -->
 <!-- 						<td><input type="text" name="sotin" /></td> -->

@@ -29,12 +29,6 @@
 					
 					</tr>
 					<tr>
-						<td><label>Mã lớp</label></td>
-						<td><input type="text" name="maLop" 
-						           value="${THE_SCORETABLE.malop}"/></td>
-					
-					</tr>
-					<tr>
 						<td><label>Kỳ Học:</label></td>
 						<td><input type="text" name="kyHoc" 
 						           value="${THE_SCORETABLE.kyhoc}"/></td>

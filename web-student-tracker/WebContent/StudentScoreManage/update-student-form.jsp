@@ -57,15 +57,15 @@
 					
 					</tr>
 					<tr>
-						<td><label>Số tín chỉ tích lũy:</label></td>
-						<td><input style="border:none" type="text" name="sotin" 
-						           value="${THE_STUDENT.sotin}" readonly/></td>
+						<td><label>Mã lớp:</label></td>
+						<td><input style="border:none" type="text" name="malop" 
+						           value="${THE_STUDENT.malop}" readonly/></td>
 					
 					</tr>
 					<tr>
-						<td><label>Điểm tích lũy:</label></td>
-						<td><input style="border:none" type="text" name="diemtichluy" 
-						           value="${THE_STUDENT.diemtichluy}" readonly/></td>
+						<td><label>Số điện thoại:</label></td>
+						<td><input style="border:none" type="text" name="sdt" 
+						           value="${THE_STUDENT.sdt}" readonly/></td>
 					
 					</tr>
 				
@@ -82,7 +82,6 @@
 					<th>Tên môn học</th>
 					<th>Điểm Quá trình</th>
 					<th>Điểm thi</th>
-					<th>Điểm kết thúc</th>
 					<th>Kỳ học</th>
 					<th>Hành động</th>
 
@@ -93,7 +92,7 @@
 				<c:url var="tempLink" value="StudentScoreControllerServlet">
 					<c:param name="command" value="LOAD1"/>
 					<c:param name="studentId" value="${tempScore.masv}"/>
-					<c:param name="scoreId" value="${tempScore.scoreid}"/>
+					<c:param name="scoreId" value="${tempScore.id}"/>
 					
 				
 				</c:url>
@@ -101,7 +100,7 @@
 				<c:url var="deleteLink" value="StudentScoreControllerServlet">
 					<c:param name="command" value="DELETE1"/>
 					<c:param name="studentId" value="${tempScore.masv}"/>
-					<c:param name="scoreId" value="${tempScore.scoreid}"/>
+					<c:param name="scoreId" value="${tempScore.id}"/>
 					
 				
 				</c:url>
@@ -110,7 +109,6 @@
 					<td>${tempScore.tenmh}</td>
 					<td>${tempScore.dqt}</td>
 					<td>${tempScore.diemthi}</td>
-					<td>${tempScore.diemkt}</td>
 					<td>${tempScore.kyhoc}</td>
 					<td>
 					<a href="${tempLink}">Cập nhật</a>

@@ -47,15 +47,15 @@
 					
 					</tr>
 					<tr>
-						<td><label>Số tín:</label></td>
-						<td><input type="text" name="sotin" 
-						           value="${THE_STUDENT.sotin}"/></td>
+						<td><label>Mã lớp:</label></td>
+						<td><input type="text" name="malop" 
+						           value="${THE_STUDENT.malop}"/></td>
 					
 					</tr>
 					<tr>
-						<td><label>Điểm tích lũy:</label></td>
-						<td><input type="text" name="diemtichluy" 
-						           value="${THE_STUDENT.diemtichluy}"/></td>
+						<td><label>Số điện thoại:</label></td>
+						<td><input type="text" name="sdt" 
+						           value="${THE_STUDENT.sdt}"/></td>
 					
 					</tr>
 					<tr>

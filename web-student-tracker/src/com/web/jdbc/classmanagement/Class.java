@@ -6,36 +6,32 @@ public class Class {
 	private int makhoa;
 	private String tenkhoa;
 	private int siso;
-	private boolean loailop;
 	
 	
 	
 
-	public Class(String tenlop, int makhoa, int siso, boolean loailop) {
+	public Class(String tenlop, int makhoa, int siso) {
 		super();
 		this.tenlop = tenlop;
 		this.makhoa = makhoa;
 		this.siso = siso;
-		this.loailop = loailop;
 	}
 
-	public Class(int malop, String tenlop, int makhoa, String tenkhoa, int siso, boolean loailop) {
+	public Class(int malop, String tenlop, int makhoa, String tenkhoa, int siso) {
 		super();
 		this.malop = malop;
 		this.tenlop = tenlop;
 		this.makhoa = makhoa;
 		this.tenkhoa = tenkhoa;
 		this.siso = siso;
-		this.loailop = loailop;
 	}
 
-	public Class(int malop, String tenlop, int makhoa, int siso, boolean loailop) {
+	public Class(int malop, String tenlop, int makhoa, int siso) {
 		super();
 		this.malop = malop;
 		this.tenlop = tenlop;
 		this.makhoa = makhoa;
 		this.siso = siso;
-		this.loailop = loailop;
 	}
 
 	public int getMalop() {
@@ -69,16 +65,6 @@ public class Class {
 	public void setSiso(int siso) {
 		this.siso = siso;
 	}
-
-	public boolean isLoailop() {
-		return loailop;
-	}
-
-	public void setLoailop(boolean loailop) {
-		this.loailop = loailop;
-	}
-
-
 	public int getMakhoa() {
 		return makhoa;
 	}
@@ -91,7 +77,7 @@ public class Class {
 	@Override
 	public String toString() {
 		return "Class [malop=" + malop + ", tenlop=" + tenlop + ", makhoa=" + makhoa + ", tenkhoa=" + tenkhoa
-				+ ", siso=" + siso + ", loailop=" + loailop + "]";
+				+ ", siso=" + siso + "]";
 	}
 
 	

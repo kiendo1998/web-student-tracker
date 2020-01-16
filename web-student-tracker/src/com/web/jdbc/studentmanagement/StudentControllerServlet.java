@@ -23,7 +23,7 @@ public class StudentControllerServlet extends HttpServlet {
 
 	private StudentDbUtil studentDbUtil;
 	
-	@Resource(name="jdbc/web_student_tracker")
+	@Resource(name="jdbc/quan_ly_sinh_vien")
 	private DataSource dataSource;
 	
 	
@@ -136,11 +136,11 @@ public class StudentControllerServlet extends HttpServlet {
 		String ngaysinh = request.getParameter("ngaysinh");
 		String gioitinh = request.getParameter("gioitinh");
 		String diachi = request.getParameter("diachi");
-		int sotin=Integer.parseInt(request.getParameter("sotin"));
-		float diemtichluy=Float.parseFloat(request.getParameter("diemtichluy"));
+		int malop=Integer.parseInt(request.getParameter("malop"));
+		String sdt = request.getParameter("sdt");
 		
 		//create a new student object
-		Student theStudent = new Student( masv,tensv, ngaysinh, gioitinh, diachi, sotin, diemtichluy);
+		Student theStudent = new Student( masv,tensv, ngaysinh, gioitinh, diachi, malop, sdt);
 		
 		//perform update on database
 		studentDbUtil.updateStudent(theStudent);
@@ -182,11 +182,11 @@ public class StudentControllerServlet extends HttpServlet {
 		//boolean gioitinh = Boolean.parseBoolean(request.getParameter("gioitinh"));
 		String gioitinh =request.getParameter("gioitinh");
 		String diachi = request.getParameter("diachi");
-//		int sotin=Integer.parseInt(request.getParameter("sotin"));
-//		float diemtichluy=Float.parseFloat(request.getParameter("diemtichluy"));
+		int malop=Integer.parseInt(request.getParameter("malop"));
+		String sdt = request.getParameter("sdt");
 		
 		//create a new student object
-		Student theStudent = new Student(tensv, ngaysinh, gioitinh, diachi);
+		Student theStudent = new Student(tensv, ngaysinh, gioitinh, diachi,malop,sdt);
 		
 		// add the student to the database
 		studentDbUtil.addStudent(theStudent);

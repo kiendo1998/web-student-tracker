@@ -42,6 +42,7 @@
 				<tr>
 					<th>Mã khoa</th>
 					<th>Tên khoa </th>
+					<th>Số điện thoại </th>
 					<th>Hành động </th>
 				</tr>
 				
@@ -63,6 +64,7 @@
 				<tr>
 					<td>${tempFaculity.makhoa}</td>
 					<td>${tempFaculity.tenkhoa}</td>
+					<td>${tempFaculity.sdt}</td>
 					<td>
 						<a href="${tempLink}">Cập nhật</a>
 						|

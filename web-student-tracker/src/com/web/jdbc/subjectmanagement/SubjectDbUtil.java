@@ -36,7 +36,7 @@ public class SubjectDbUtil {
             //
             if (theSearchName != null && theSearchName.trim().length() > 0) {
                 // create sql to search for subjects by name
-                String sql = "select * from subject where lower(tenmh) like ?";
+                String sql = "select * from monhoc where lower(tenmh) like ?";
                 // create prepared statement
                 myStmt = myConn.prepareStatement(sql);
                 // set params
@@ -46,7 +46,7 @@ public class SubjectDbUtil {
                 
             } else {
                 // create sql to get all subjects
-                String sql = "select * from subject order by tenmh";
+                String sql = "select * from monhoc order by tenmh";
                 // create prepared statement
                 myStmt = myConn.prepareStatement(sql);
             }
@@ -85,7 +85,7 @@ public class SubjectDbUtil {
 			//getconnection to database
 			myConn = dataSource.getConnection();
 			//create sql to delete Subject
-			String sql = "delete from subject where mamh=?";
+			String sql = "delete from monhoc where mamh=?";
 			//prepare statement
 			myStmt = myConn.prepareStatement(sql);
 			
@@ -128,7 +128,7 @@ public class SubjectDbUtil {
 		//get db connection
 		myConn = dataSource.getConnection();
 		//create SQL update statement
-		String sql="update subject "
+		String sql="update monhoc "
 				+ "set tenmh=?,sotc=? "
 				+ "where mamh=?";
 		//prepare statement
@@ -160,7 +160,7 @@ Subject theSubject = null;
 			//get connection to database
 			myConn = dataSource.getConnection();
 			//create sql to get selected student
-			String sql = "select * from subject where mamh=?";
+			String sql = "select * from monhoc where mamh=?";
 			//create prepared statement
 			myStmt = myConn.prepareStatement(sql);
 			
@@ -203,7 +203,7 @@ Subject theSubject = null;
 			//get db connection
 			myConn = dataSource.getConnection();
 			//create sql for insert
-			String sql = "insert into subject"
+			String sql = "insert into monhoc"
 			+ "(tenmh, sotc) "
 			+ "value (?, ?)"	;	
 			myStmt = myConn.prepareStatement(sql);
@@ -232,7 +232,7 @@ List<Subject> subjects = new ArrayList<>();
 		//get a connection
 		myConn = dataSource.getConnection();
 		//create sql statement
-		String sql = "select * from subject order by tenmh";
+		String sql = "select * from monhoc order by tenmh";
 		
 		myStmt = myConn.createStatement();
 		//execute query

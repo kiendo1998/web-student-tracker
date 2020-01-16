@@ -18,7 +18,7 @@
 		
 			<input type="hidden" name="command" value="UPDATE1"/>
 				<input type="hidden"  name="studentId" value="${THE_STUDENT1.masv}"/>
-				<input type="hidden"  name="scoreId" value="${THE_STUDENT1.scoreid}"/>
+				<input type="hidden"  name="scoreId" value="${THE_STUDENT1.id}"/>
 			<table>
 			
 				<tbody>

@@ -45,7 +45,6 @@
 					<th>Mã khoa</th>
 					<th>Tên khoa</th>
 					<th>Sĩ số</th>
-					<th>Loại lớp</th>
 					<th>Hành động</th>
 
 				</tr>
@@ -71,7 +70,6 @@
 					<td>${tempClass.makhoa}</td>
 					<td>${tempClass.tenkhoa}</td>
 					<td>${tempClass.siso}</td>
-					<td>${tempClass.loailop}</td>
 					<td>
 						<a href="${tempLink}">Cập nhật</a>
 						|

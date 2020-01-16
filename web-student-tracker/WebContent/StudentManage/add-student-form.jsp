@@ -42,6 +42,16 @@
 						<td><input type="text" name="diachi" /></td>
 					
 					</tr>
+					<tr>
+						<td><label>Mã lớp:</label></td>
+						<td><input type="text" name="malop" /></td>
+					
+					</tr>
+					<tr>
+						<td><label>Số điện thoại:</label></td>
+						<td><input type="text" name="sdt" /></td>
+					
+					</tr>
 <!-- 					<tr> -->
 <!-- 						<td><label>Số tín:</label></td> -->
 <!-- 						<td><input type="text" name="sotin" /></td> -->

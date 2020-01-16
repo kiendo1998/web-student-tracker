@@ -75,12 +75,6 @@
 					
 					</tr>
 					<tr>
-						<td><label>Tên lớp:</label></td>
-						<td><input style="border:none" type="text" name="ngaysinh" 
-						           value="${THE_SCORETABLE.tenlop}" readonly/></td>
-					
-					</tr>
-					<tr>
 						<td><label>Kỳ học:</label></td>
 						<td><input style="border:none" type="text" name="gioitinh" 
 						           value="${THE_SCORETABLE.kyhoc}" readonly/></td>
@@ -99,7 +93,6 @@
 					<th>Tên Sinh viên</th>
 					<th>ĐQT</th>
 					<th>Điểm thi</th>
-					<th>Điểm kết thúc</th>
 
 				</tr>
 				
@@ -110,7 +103,6 @@
 					<td>${tempScore.tensv}</td>
 					<td>${tempScore.dqt}</td>
 					<td>${tempScore.diemthi}</td>
-					<td>${tempScore.diemkt}</td>
 				</tr>
 				
 			</c:forEach>

@@ -27,8 +27,7 @@ public class ScoreTableDbUtil {
 		//get a connection
 		myConn = dataSource.getConnection();
 		//create sql statement
-		String sql = "select * from class inner join scoretable on class.malop=scoretable.malop "
-				+ "inner join subject on scoretable.mamh=subject.mamh  order by scoretableid;";
+		String sql = "select * from monhoc inner join dangky on monhoc.mamh=dangky.mamh ";
 		
 		myStmt = myConn.createStatement();
 		//execute query
@@ -36,15 +35,12 @@ public class ScoreTableDbUtil {
 		//process result set
 		while (myRs.next()) {
 			//retrieve data from result set row
-			int scoretableid = myRs.getInt("scoretableid");
-			int mamh = myRs.getInt("MaMH");
+			int scoretableid = myRs.getInt("madk");
+			int mamh = myRs.getInt("monhoc.MaMH");
 			String tenmh = myRs.getString("tenmh");
-			
-			int malop = myRs.getInt("MaLop");
-			String tenlop = myRs.getString("tenlop");
 			String kyhoc = myRs.getString("KyHoc");
 			//create new student object
-			ScoreTable tempScoretable = new ScoreTable(scoretableid, mamh, malop, kyhoc, tenmh, tenlop);
+			ScoreTable tempScoretable = new ScoreTable(scoretableid, mamh, kyhoc, tenmh);
 			//add it to the list of sudents
 			scoretables.add(tempScoretable);
 		}
@@ -87,14 +83,13 @@ public class ScoreTableDbUtil {
 			//get db connection
 			myConn = dataSource.getConnection();
 			//create sql for insert
-			String sql = "insert into scoretable(mamh,malop,kyhoc) "
-			+ "value (?, ?, ?)"	;	
+			String sql = "insert into dangky(mamh,kyhoc) "
+			+ "value (?, ?)"	;	
 			myStmt = myConn.prepareStatement(sql);
 			//set the param values for the student
 			//myStmt.setInt(1, theStudent.getMasv());
 			myStmt.setInt(1, theScoretable.getMamh());
-			myStmt.setInt(2, theScoretable.getMalop());
-			myStmt.setString(3, theScoretable.getKyhoc());
+			myStmt.setString(2, theScoretable.getKyhoc());
 
 			//execute sql insert
 			myStmt.execute();
@@ -149,7 +144,7 @@ public class ScoreTableDbUtil {
 			//get connection to database
 			myConn = dataSource.getConnection();
 			//create sql to get selected student
-			String sql = "select * from scoretable where scoretableid=?";
+			String sql = "select * from dangky where madk=?";
 			//create prepared statement
 			myStmt = myConn.prepareStatement(sql);
 			
@@ -160,12 +155,11 @@ public class ScoreTableDbUtil {
 			//retrieve data from result set row
 			
 			if (myRs.next()) {
-				int scoretableid = myRs.getInt("scoretableid");
+				int scoretableid = myRs.getInt("madk");
 				int mamh = myRs.getInt("mamh");
-				int malop = myRs.getInt("malop");
 				String kyhoc = myRs.getString("kyhoc");
 				//use the studentId during construction
-				theScoretable = new ScoreTable(scoretableid, mamh, malop, kyhoc);
+				theScoretable = new ScoreTable(scoretableid, mamh, kyhoc);
 				
 			}
 			else {
@@ -199,7 +193,7 @@ public class ScoreTableDbUtil {
 			//get connection to database
 			myConn = dataSource.getConnection();
 			//create sql to get selected student
-			String sql = "select * from score where scoretableid=?";
+			String sql = "select * from diem where madk=?";
 			//create prepared statement
 			myStmt = myConn.prepareStatement(sql);
 			
@@ -210,14 +204,13 @@ public class ScoreTableDbUtil {
 			//retrieve data from result set row
 			
 			if (myRs.next()) {
-				int scoretableid = myRs.getInt("scoretableid");
-				int scoreid = myRs.getInt("scoreid");
+				int scoretableid = myRs.getInt("madk");
+				int scoreid = myRs.getInt("id");
 				int masv = myRs.getInt("masv");
 				float dqt = myRs.getFloat("diemqt");
 				float diemthi = myRs.getFloat("diemthi");
-				float diemkt = myRs.getFloat("diemkt");
 				//use the studentId during construction
-				theScore = new Score(scoretableid, scoreid, masv, dqt, diemthi, diemkt);
+				theScore = new Score(scoretableid, scoreid, masv, dqt, diemthi);
 				
 			}
 			else {
@@ -246,17 +239,16 @@ public class ScoreTableDbUtil {
 		//get db connection
 		myConn = dataSource.getConnection();
 		//create SQL update statement
-		String sql="update scoretable "
-				+ "set MaMH=?,malop=?, kyhoc=? "
-				+ "where scoretableid=?";
+		String sql="update dangky "
+				+ "set MaMH=?, kyhoc=? "
+				+ "where madk=?";
 		//prepare statement
 		myStmt = myConn.prepareStatement(sql);
 		//set params
 		
 		myStmt.setInt(1, theScoretable.getMamh());
-		myStmt.setInt(2, theScoretable.getMalop());
-		myStmt.setString(3, theScoretable.getKyhoc());
-		myStmt.setInt(4, theScoretable.getScoretableid());
+		myStmt.setString(2, theScoretable.getKyhoc());
+		myStmt.setInt(3, theScoretable.getScoretableid());
 		//execute SQL statement
 		myStmt.execute();
 			}
@@ -275,7 +267,7 @@ public class ScoreTableDbUtil {
 			//getconnection to database
 			myConn = dataSource.getConnection();
 			//create sql to delete student
-			String sql = "delete from scoretable where scoretableid=?";
+			String sql = "delete from dangky where madk=?";
 			//prepare statement
 			myStmt = myConn.prepareStatement(sql);
 			
@@ -311,10 +303,9 @@ public class ScoreTableDbUtil {
             //
             if (theSearchName != null && theSearchName.trim().length() > 0) {
                 // create sql to search for students by name
-                String sql = "select * from class inner join "
-                		+ "scoretable on class.malop=scoretable.malop "
-                		+ "inner join subject on scoretable.mamh=subject.mamh "
-                		+ "where lower(tenlop) like ?";
+                String sql = "select * from monhoc inner join "
+                		+ "dangky on monhoc.mamh=dangky.mamh "
+                		+ "where lower(tenmh) like ?";
                 // create prepared statement
                 myStmt = myConn.prepareStatement(sql);
                 // set params
@@ -324,8 +315,8 @@ public class ScoreTableDbUtil {
                 
             } else {
                 // create sql to get all students
-                String sql = "select * from class inner join scoretable on class.malop=scoretable.malop "
-        				+ "inner join subject on scoretable.mamh=subject.mamh  order by scoretableid;";
+                String sql = "select * from monhoc inner join dangky on monhoc.mamh=dangky.mamh "
+        				+ " order by madk;";
                 // create prepared statement
                 myStmt = myConn.prepareStatement(sql);
             }
@@ -337,15 +328,12 @@ public class ScoreTableDbUtil {
             while (myRs.next()) {
                 
                 // retrieve data from result set row
-            	int scoretableid = myRs.getInt("scoretableid");
+            	int scoretableid = myRs.getInt("madk");
     			int mamh = myRs.getInt("MaMH");
     			String tenmh = myRs.getString("tenmh");
-    			
-    			int malop = myRs.getInt("MaLop");
-    			String tenlop = myRs.getString("tenlop");
     			String kyhoc = myRs.getString("KyHoc");
     			//create new student object
-    			ScoreTable tempScoretable = new ScoreTable(scoretableid, mamh, malop, kyhoc, tenmh, tenlop);
+    			ScoreTable tempScoretable = new ScoreTable(scoretableid, mamh, kyhoc, tenmh);
                 // add it to the list of students
                 scoretables.add(tempScoretable);            
             }
@@ -415,7 +403,7 @@ public class ScoreTableDbUtil {
 		//get a connection
 		myConn = dataSource.getConnection();
 		//create sql statement
-		String sql = "select scoreid,masv,diemqt,diemthi,diemkt from score where scoretableid=?";
+		String sql = "select id,masv,diemqt,diemthi from diem where madk=?";
 		
 		myStmt = myConn.prepareStatement(sql);
 		
@@ -427,12 +415,11 @@ public class ScoreTableDbUtil {
 		while (myRs.next()) {
 			//retrieve data from result set row
 			int masv = myRs.getInt("masv");
-			int scoreid = myRs.getInt("scoreid");
+			int scoreid = myRs.getInt("id");
 			float dqt = myRs.getFloat("diemqt");
 			float diemthi = myRs.getFloat("diemthi");
-			float diemkt = myRs.getFloat("diemkt");
 			//create new student object
-			Score tempScore = new Score(masv, dqt, diemthi, diemkt,scoreid);
+			Score tempScore = new Score(masv, dqt, diemthi,scoreid);
 			//add it to the list of sudents
 			scores.add(tempScore);
 		}
@@ -458,8 +445,8 @@ public void addScore(Score theScore) throws Exception {
 			//get db connection
 			myConn = dataSource.getConnection();
 			//create sql for insert
-			String sql = "insert into score(scoretableid,masv,diemqt,diemthi,diemkt)"
-			+ "value (?, ?, ?, ?,?)"	;	
+			String sql = "insert into diem(madk,masv,diemqt,diemthi)"
+			+ "value (?, ?, ?, ?)"	;	
 			myStmt = myConn.prepareStatement(sql);
 			//set the param values for the student
 			//myStmt.setInt(1, theStudent.getMasv());
@@ -467,7 +454,6 @@ public void addScore(Score theScore) throws Exception {
 			myStmt.setInt(2, theScore.getMasv());
 			myStmt.setFloat(3, theScore.getDqt());
 			myStmt.setFloat(4, theScore.getDiemthi());
-			myStmt.setFloat(5, (float)(theScore.getDiemthi()*0.7+0.3*theScore.getDqt()));
 			
 			//execute sql insert
 			myStmt.execute();

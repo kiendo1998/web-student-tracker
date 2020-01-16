@@ -40,8 +40,8 @@
 					<th>Ngày Sinh</th>
 					<th>Giới tính</th>
 					<th>Địa chỉ</th>
-					<th>Số tín</th>
-					<th>Điểm tích lũy</th>
+					<th>Mã lớp</th>
+					<th>Số điện thoại</th>
 					<th>Hành động</th>
 				</tr>
 				
@@ -66,8 +66,8 @@
 					<td>${tempStudent.ngaysinh}</td>
 					<td>${tempStudent.gioitinh}</td>
 					<td>${tempStudent.diachi}</td>
-					<td>${tempStudent.sotin}</td>
-					<td>${tempStudent.diemtichluy}</td>
+					<td>${tempStudent.malop}</td>
+					<td>${tempStudent.sdt}</td>
 					<td>
 						<a href="${tempLink}">Xem, In bảng điểm</a>
 						|

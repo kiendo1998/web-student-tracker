@@ -21,7 +21,7 @@ public class ScoreControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ScoreDbUtil scoreDbUtil;
 	
-	@Resource(name="jdbc/web_student_tracker")
+	@Resource(name="jdbc/quan_ly_sinh_vien")
 	private DataSource dataSource;
 
 	

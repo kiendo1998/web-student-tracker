@@ -28,6 +28,11 @@
 					
 					</tr>
 					<tr>
+						<td><label>Số điện thoại:</label></td>
+						<td><input type="text" name="sdt" /></td>
+					
+					</tr>
+					<tr>
 						<td><label></label></td>
 						<td><input type="submit" value="Lưu" class="save" /></td>
 					

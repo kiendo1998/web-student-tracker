@@ -27,7 +27,7 @@ public class StudentDbUtil {
 		//get a connection
 		myConn = dataSource.getConnection();
 		//create sql statement
-		String sql = "select * from student order by tensv;";
+		String sql = "select * from sinhvien order by tensv;";
 		
 		myStmt = myConn.createStatement();
 		//execute query
@@ -40,10 +40,10 @@ public class StudentDbUtil {
 			String ngaysinh = myRs.getString("ngaysinh");
 			String gioitinh = myRs.getString("gioitinh");
 			String diachi = myRs.getString("diachi");
-			int sotin = myRs.getInt("sotin");
-			float diemtichluy = myRs.getFloat("diemtichluy");
+			int malop = myRs.getInt("malop");
+			String sdt = myRs.getString("sdt");
 			//create new student object
-			Student tempStudent = new Student(masv, tensv, ngaysinh, gioitinh, diachi, sotin, diemtichluy);
+			Student tempStudent = new Student(masv, tensv, ngaysinh, gioitinh, diachi, malop, sdt);
 			//add it to the list of sudents
 			students.add(tempStudent);
 		}
@@ -86,8 +86,8 @@ public class StudentDbUtil {
 			//get db connection
 			myConn = dataSource.getConnection();
 			//create sql for insert
-			String sql = "insert into student(TenSV,NgaySinh,GioiTinh,DiaChi)"
-			+ "value (?, ?, ?,?)"	;	
+			String sql = "insert into sinhvien(TenSV,NgaySinh,GioiTinh,DiaChi,malop,sdt)"
+			+ "value (?, ?, ?,?,?,?)"	;	
 			myStmt = myConn.prepareStatement(sql);
 			//set the param values for the student
 			//myStmt.setInt(1, theStudent.getMasv());
@@ -95,8 +95,8 @@ public class StudentDbUtil {
 			myStmt.setString(2, theStudent.getNgaysinh());
 			myStmt.setString(3, theStudent.getGioitinh());
 			myStmt.setString(4, theStudent.getDiachi());
-//			myStmt.setInt(5, theStudent.getSotin());
-//			myStmt.setFloat(6, theStudent.getDiemtichluy());
+			myStmt.setInt(5, theStudent.getMalop());
+			myStmt.setString(6, theStudent.getSdt());
 			//execute sql insert
 			myStmt.execute();
 		}
@@ -123,7 +123,7 @@ public class StudentDbUtil {
 			//get connection to database
 			myConn = dataSource.getConnection();
 			//create sql to get selected student
-			String sql = "select * from student where masv=?";
+			String sql = "select * from sinhvien where masv=?";
 			//create prepared statement
 			myStmt = myConn.prepareStatement(sql);
 			
@@ -138,11 +138,11 @@ public class StudentDbUtil {
 				String ngaysinh = myRs.getString("ngaysinh");
 				String gioitinh = myRs.getString("gioitinh");
 				String diachi = myRs.getString("diachi");
-				int sotin = myRs.getInt("sotin");
-				float diemtichluy = myRs.getFloat("diemtichluy");
+				int malop = myRs.getInt("malop");
+				String sdt = myRs.getString("sdt");
 				
 				//use the studentId during construction
-				theStudent = new Student(masv, tensv, ngaysinh, gioitinh, diachi, sotin, diemtichluy);
+				theStudent = new Student(masv, tensv, ngaysinh, gioitinh, diachi, malop, sdt);
 				
 			}
 			else {
@@ -172,8 +172,8 @@ public class StudentDbUtil {
 		//get db connection
 		myConn = dataSource.getConnection();
 		//create SQL update statement
-		String sql="update student "
-				+ "set tensv=?,ngaysinh=?, gioitinh=?,diachi=?,sotin=?,diemtichluy=? "
+		String sql="update sinhvien "
+				+ "set tensv=?,ngaysinh=?, gioitinh=?,diachi=?,malop=?,sdt=? "
 				+ "where masv=?";
 		//prepare statement
 		myStmt = myConn.prepareStatement(sql);
@@ -183,8 +183,9 @@ public class StudentDbUtil {
 		myStmt.setString(2, theStudent.getNgaysinh());
 		myStmt.setString(3, theStudent.getGioitinh());
 		myStmt.setString(4, theStudent.getDiachi());
-		myStmt.setInt(5, theStudent.getSotin());
-		myStmt.setFloat(6, theStudent.getDiemtichluy());
+		myStmt.setInt(5, theStudent.getMalop());
+		myStmt.setString(6, theStudent.getSdt());
+
 		myStmt.setInt(7, theStudent.getMasv());
 		//execute SQL statement
 		myStmt.execute();
@@ -204,7 +205,7 @@ public class StudentDbUtil {
 			//getconnection to database
 			myConn = dataSource.getConnection();
 			//create sql to delete student
-			String sql = "delete from student where masv=?";
+			String sql = "delete from sinhvien where masv=?";
 			//prepare statement
 			myStmt = myConn.prepareStatement(sql);
 			
@@ -240,7 +241,7 @@ public class StudentDbUtil {
             //
             if (theSearchName != null && theSearchName.trim().length() > 0) {
                 // create sql to search for students by name
-                String sql = "select * from student where  lower(tensv) like ?";
+                String sql = "select * from sinhvien where  lower(tensv) like ?";
                 // create prepared statement
                 myStmt = myConn.prepareStatement(sql);
                 // set params
@@ -250,7 +251,7 @@ public class StudentDbUtil {
                 
             } else {
                 // create sql to get all students
-                String sql = "select * from student order by tensv";
+                String sql = "select * from sinhvien order by tensv";
                 // create prepared statement
                 myStmt = myConn.prepareStatement(sql);
             }
@@ -267,11 +268,11 @@ public class StudentDbUtil {
 				String ngaysinh = myRs.getString("ngaysinh");
 				String gioitinh = myRs.getString("gioitinh");
 				String diachi = myRs.getString("diachi");
-				int sotin = myRs.getInt("sotin");
-				float diemtichluy = myRs.getFloat("diemtichluy");
+				int malop = myRs.getInt("malop");
+				String sdt = myRs.getString("sdt");
                 
                 // create new student object
-                Student tempStudent = new Student(masv, tensv, ngaysinh, gioitinh, diachi, sotin, diemtichluy);
+                Student tempStudent = new Student(masv, tensv, ngaysinh, gioitinh, diachi, malop,sdt);
                 
                 // add it to the list of students
                 students.add(tempStudent);            

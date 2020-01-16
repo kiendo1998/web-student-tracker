@@ -97,7 +97,6 @@
 					<th>Mã Sinh viên</th>
 					<th>ĐQT</th>
 					<th>Điểm thi</th>
-					<th>Điểm kết thúc</th>
 
 				</tr>
 				
@@ -107,7 +106,6 @@
 					<td>${tempScore.masv}</td>
 					<td>${tempScore.dqt}</td>
 					<td>${tempScore.diemthi}</td>
-					<td>${tempScore.diemkt}</td>
 				</tr>
 				
 			</c:forEach>

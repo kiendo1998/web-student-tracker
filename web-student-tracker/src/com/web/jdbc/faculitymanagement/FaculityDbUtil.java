@@ -27,7 +27,7 @@ public class FaculityDbUtil {
 		//get a connection
 		myConn = dataSource.getConnection();
 		//create sql statement
-		String sql = "select * from faculity order by tenkhoa;";
+		String sql = "select * from khoa order by tenkhoa;";
 		
 		myStmt = myConn.createStatement();
 		//execute query
@@ -37,8 +37,9 @@ public class FaculityDbUtil {
 			//retrieve data from result set row
 			int makhoa = myRs.getInt("makhoa");
 			String tenkhoa = myRs.getString("tenkhoa");
+			String sdt = myRs.getString("sdt");
 			//create new student object
-			Faculity tempFaculity = new Faculity(makhoa, tenkhoa);
+			Faculity tempFaculity = new Faculity(makhoa, tenkhoa,sdt);
 			//add it to the list of sudents
 			faculities.add(tempFaculity);
 		}
@@ -81,12 +82,13 @@ public class FaculityDbUtil {
 			//get db connection
 			myConn = dataSource.getConnection();
 			//create sql for insert
-			String sql = "insert into faculity(Tenkhoa)"
-			+ "value (?)"	;	
+			String sql = "insert into khoa(Tenkhoa,sdt)"
+			+ "value (?,?)"	;	
 			myStmt = myConn.prepareStatement(sql);
 			//set the param values for the student
 			//myStmt.setInt(1, theStudent.getMasv());
 			myStmt.setString(1, theFaculity.getTenkhoa());
+			myStmt.setString(2, theFaculity.getSdt());
 
 //			myStmt.setInt(5, theStudent.getSotin());
 //			myStmt.setFloat(6, theStudent.getDiemtichluy());
@@ -116,7 +118,7 @@ public class FaculityDbUtil {
 			//get connection to database
 			myConn = dataSource.getConnection();
 			//create sql to get selected student
-			String sql = "select * from faculity where makhoa=?";
+			String sql = "select * from khoa where makhoa=?";
 			//create prepared statement
 			myStmt = myConn.prepareStatement(sql);
 			
@@ -128,9 +130,10 @@ public class FaculityDbUtil {
 			if (myRs.next()) {
 				int makhoa = myRs.getInt("makhoa");
 				String tenkhoa = myRs.getString("tenkhoa");
+				String sdt = myRs.getString("sdt");
 				
 				//use the studentId during construction
-				theFaculity = new Faculity(makhoa, tenkhoa);
+				theFaculity = new Faculity(makhoa, tenkhoa,sdt);
 				
 			}
 			else {
@@ -160,15 +163,16 @@ public class FaculityDbUtil {
 		//get db connection
 		myConn = dataSource.getConnection();
 		//create SQL update statement
-		String sql="update faculity "
-				+ "set tenkhoa=? "
+		String sql="update khoa "
+				+ "set tenkhoa=?,sdt=? "
 				+ "where makhoa=?";
 		//prepare statement
 		myStmt = myConn.prepareStatement(sql);
 		//set params
 		
 		myStmt.setString(1, theFaculity.getTenkhoa());
-		myStmt.setInt(2, theFaculity.getMakhoa());
+		myStmt.setString(2, theFaculity.getSdt());
+		myStmt.setInt(3, theFaculity.getMakhoa());
 		//execute SQL statement
 		myStmt.execute();
 			}
@@ -187,7 +191,7 @@ public class FaculityDbUtil {
 			//getconnection to database
 			myConn = dataSource.getConnection();
 			//create sql to delete student
-			String sql = "delete from faculity where makhoa=?";
+			String sql = "delete from khoa where makhoa=?";
 			//prepare statement
 			myStmt = myConn.prepareStatement(sql);
 			
@@ -223,7 +227,7 @@ public class FaculityDbUtil {
             //
             if (theSearchName != null && theSearchName.trim().length() > 0) {
                 // create sql to search for students by name
-                String sql = "select * from faculity where  lower(tenkhoa) like ?";
+                String sql = "select * from khoa where  lower(tenkhoa) like ?";
                 // create prepared statement
                 myStmt = myConn.prepareStatement(sql);
                 // set params
@@ -233,7 +237,7 @@ public class FaculityDbUtil {
                 
             } else {
                 // create sql to get all students
-                String sql = "select * from faculity order by tenkhoa";
+                String sql = "select * from khoa order by tenkhoa";
                 // create prepared statement
                 myStmt = myConn.prepareStatement(sql);
             }
@@ -247,10 +251,11 @@ public class FaculityDbUtil {
                 // retrieve data from result set row
             	int makhoa = myRs.getInt("makhoa");
 				String tenkhoa = myRs.getString("tenkhoa");
+				String sdt = myRs.getString("sdt");
 
                 
                 // create new student object
-                Faculity tempFaculity = new Faculity(makhoa, tenkhoa);
+                Faculity tempFaculity = new Faculity(makhoa, tenkhoa, sdt);
                 
                 // add it to the list of students
                 faculities.add(tempFaculity);            

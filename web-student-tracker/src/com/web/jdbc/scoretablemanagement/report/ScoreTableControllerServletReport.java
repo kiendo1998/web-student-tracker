@@ -23,7 +23,7 @@ public class ScoreTableControllerServletReport extends HttpServlet {
 
 	private ScoreTableDbUtil scoretableDbUtil;
 	
-	@Resource(name="jdbc/web_student_tracker")
+	@Resource(name="jdbc/quan_ly_sinh_vien")
 	private DataSource dataSource;
 	
 	
@@ -114,7 +114,7 @@ public class ScoreTableControllerServletReport extends HttpServlet {
         request.setAttribute("SCORETABLE_LIST", scoretables);
                 
         // send to JSP page (view)
-        RequestDispatcher dispatcher = request.getRequestDispatcher("ScoretableManage/list-scoretables.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("ScoretableReportManage/list-scoretables.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -186,10 +186,9 @@ public class ScoreTableControllerServletReport extends HttpServlet {
 		// read student infor from form data
 		//int masv=Integer.parseInt(request.getParameter("masv"));
 		int maMH=Integer.parseInt(request.getParameter("mamh"));
-		int maLop=Integer.parseInt(request.getParameter("malop"));
 		String kyHoc = request.getParameter("kyhoc");
 		
-		ScoreTable theScoretable = new ScoreTable(maMH, maLop, kyHoc);
+		ScoreTable theScoretable = new ScoreTable(maMH, kyHoc);
 		
 		// add the student to the database
 		scoretableDbUtil.addScoretable(theScoretable);

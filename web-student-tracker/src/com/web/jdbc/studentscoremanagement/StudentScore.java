@@ -6,81 +6,68 @@ public class StudentScore {
 	private String ngaysinh;
 	private String gioitinh;
 	private String diachi;
-	private int sotin;
-	private float diemtichluy;
+	private int malop;
+	private String sdt;
 	//diem cua tung sinh vien
 	private int mamh;
 	private String tenmh;
 	private float dqt;
 	private float diemthi;
-	private float diemkt;
 	private String kyhoc;
-	private int scoreid;
-	
-	
-	public StudentScore(int masv, float dqt, float diemthi, int scoreid) {
-		super();
-		this.masv = masv;
-		this.dqt = dqt;
-		this.diemthi = diemthi;
-		this.scoreid = scoreid;
-	}
-
+	private int id;
 	public StudentScore(float dqt, float diemthi) {
 		super();
 		this.dqt = dqt;
 		this.diemthi = diemthi;
 	}
 
-	public StudentScore(int masv, float dqt, float diemthi, float diemkt, int scoreid) {
+	public StudentScore(int masv, float dqt, float diemthi, int id) {
 		super();
 		this.masv = masv;
 		this.dqt = dqt;
 		this.diemthi = diemthi;
-		this.diemkt = diemkt;
-		this.scoreid = scoreid;
+
+		this.id = id;
 	}
 
-	public StudentScore(int masv, int mamh, String tenmh, float dqt, float diemthi, float diemkt, String kyhoc,
-			int scoreid) {
+	public StudentScore(int masv, int mamh, String tenmh, float dqt, float diemthi, String kyhoc,
+			int id) {
 		super();
 		this.masv = masv;
 		this.mamh = mamh;
 		this.tenmh = tenmh;
 		this.dqt = dqt;
 		this.diemthi = diemthi;
-		this.diemkt = diemkt;
+
 		this.kyhoc = kyhoc;
-		this.scoreid = scoreid;
+		this.id = id;
 	}
 
-	public StudentScore(int mamh, String tenmh, float dqt, float diemthi, float diemkt, String kyhoc, int scoreid) {
+	public StudentScore(int mamh, String tenmh, float dqt, float diemthi, String kyhoc, int id) {
 		super();
 		this.mamh = mamh;
 		this.tenmh = tenmh;
 		this.dqt = dqt;
 		this.diemthi = diemthi;
-		this.diemkt = diemkt;
 		this.kyhoc = kyhoc;
-		this.scoreid = scoreid;
+		this.id = id;
 	}
 
-	public StudentScore(int mamh, String tenmh, float dqt, float diemthi, float diemkt, String kyhoc) {
+	public StudentScore(int mamh, String tenmh, float dqt, float diemthi, String kyhoc) {
 		super();
 		this.mamh = mamh;
 		this.tenmh = tenmh;
 		this.dqt = dqt;
 		this.diemthi = diemthi;
-		this.diemkt = diemkt;
 		this.kyhoc = kyhoc;
 	}
 
-	public int getScoreid() {
-		return scoreid;
+	public int getId() {
+		return id;
 	}
 
-	public void setScoreid(int scoreid) {
-		this.scoreid = scoreid;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getMamh() {
@@ -115,13 +102,7 @@ public class StudentScore {
 		this.diemthi = diemthi;
 	}
 
-	public float getDiemkt() {
-		return diemkt;
-	}
 
-	public void setDiemkt(float diemkt) {
-		this.diemkt = diemkt;
-	}
 
 	public String getKyhoc() {
 		return kyhoc;
@@ -131,26 +112,27 @@ public class StudentScore {
 		this.kyhoc = kyhoc;
 	}
 
-	public StudentScore(int masv, String tensv, String ngaysinh, String gioitinh, String diachi, int sotin,
-			float diemtichluy) {
+	public StudentScore(int masv, String tensv, String ngaysinh, String gioitinh, String diachi, int malop,
+			String sdt) {
 		super();
 		this.masv = masv;
 		this.tensv = tensv;
 		this.ngaysinh = ngaysinh;
 		this.gioitinh = gioitinh;
 		this.diachi = diachi;
-		this.sotin = sotin;
-		this.diemtichluy = diemtichluy;
+		this.malop = malop;
+		this.sdt = sdt;
 	}
 	
-	public StudentScore(String tensv, String ngaysinh, String gioitinh, String diachi, int sotin, float diemtichluy) {
+	public StudentScore(String tensv, String ngaysinh, String gioitinh, String diachi, int malop,
+			String sdt) {
 		super();
 		this.tensv = tensv;
 		this.ngaysinh = ngaysinh;
 		this.gioitinh = gioitinh;
 		this.diachi = diachi;
-		this.sotin = sotin;
-		this.diemtichluy = diemtichluy;
+		this.malop = malop;
+		this.sdt = sdt;
 	}
 
 	public StudentScore(int masv, String tensv, String ngaysinh, String gioitinh, String diachi) {
@@ -200,22 +182,27 @@ public class StudentScore {
 	public void setDiachi(String diachi) {
 		this.diachi = diachi;
 	}
-	public int getSotin() {
-		return sotin;
+
+	public int getMalop() {
+		return malop;
 	}
-	public void setSotin(int sotin) {
-		this.sotin = sotin;
+
+	public void setMalop(int malop) {
+		this.malop = malop;
 	}
-	public float getDiemtichluy() {
-		return diemtichluy;
+
+	public String getSdt() {
+		return sdt;
 	}
-	public void setDiemtichluy(float diemtichluy) {
-		this.diemtichluy = diemtichluy;
+
+	public void setSdt(String sdt) {
+		this.sdt = sdt;
 	}
+
 	@Override
 	public String toString() {
 		return "Student [masv=" + masv + ", tensv=" + tensv + ", ngaysinh=" + ngaysinh + ", gioitinh=" + gioitinh
-				+ ", diachi=" + diachi + ", sotin=" + sotin + ", diemtichluy=" + diemtichluy + "]";
+				+ ", diachi=" + diachi +  "]";
 	}
 	
 	

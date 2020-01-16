@@ -28,11 +28,6 @@
 					
 					</tr>
 					<tr>
-						<td><label>Mã lớp:</label></td>
-						<td><input type="text" name="malop" /></td>
-					
-					</tr>
-					<tr>
 						<td><label>Kỳ Học:</label></td>
 						<td><input type="text" name="kyhoc" /></td>
 					

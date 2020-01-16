@@ -23,7 +23,7 @@ public class ClassControllerServlet extends HttpServlet {
 
 	private ClassDbUtil classDbUtil;
 	
-	@Resource(name="jdbc/web_student_tracker")
+	@Resource(name="jdbc/quan_ly_sinh_vien")
 	private DataSource dataSource;
 	
 	
@@ -136,9 +136,8 @@ public class ClassControllerServlet extends HttpServlet {
 		int makhoa=Integer.parseInt(request.getParameter("makhoa"));
 		String tenkhoa = request.getParameter("tenkhoa");
 		int siso=Integer.parseInt(request.getParameter("siso"));
-		boolean loailop=Boolean.parseBoolean("loailop");
 		//create a new student object
-		Class theClass = new Class(malop, tenlop, makhoa, tenkhoa, siso, loailop);
+		Class theClass = new Class(malop, tenlop, makhoa, tenkhoa, siso);
 		
 		//perform update on database
 		classDbUtil.updateClass(theClass);
@@ -178,9 +177,8 @@ public class ClassControllerServlet extends HttpServlet {
 		String tenlop = request.getParameter("tenlop");
 		int makhoa=Integer.parseInt(request.getParameter("makhoa"));
 		int siso=Integer.parseInt(request.getParameter("siso"));
-		boolean loailop = Boolean.parseBoolean("loailop");
 		//create a new class object
-		Class theClass = new Class(tenlop, makhoa, siso, loailop);
+		Class theClass = new Class(tenlop, makhoa, siso);
 		
 		// add the student to the database
 		classDbUtil.addClass(theClass);
