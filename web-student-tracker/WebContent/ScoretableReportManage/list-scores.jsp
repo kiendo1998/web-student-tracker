@@ -93,6 +93,9 @@
 					<th>Tên Sinh viên</th>
 					<th>ĐQT</th>
 					<th>Điểm thi</th>
+					<th>Điểm kết thúc</th>
+					<th>Điểm hệ 4</th>
+					<th>Điểm chữ</th>
 
 				</tr>
 				
@@ -103,6 +106,9 @@
 					<td>${tempScore.tensv}</td>
 					<td>${tempScore.dqt}</td>
 					<td>${tempScore.diemthi}</td>
+					<td>${tempScore.diemthi*0.7+tempScore.dqt*0.3}</td>
+					<td>${tempScore.diemhe4}</td>
+					<td>${tempScore.diemchu}</td>
 				</tr>
 				
 			</c:forEach>

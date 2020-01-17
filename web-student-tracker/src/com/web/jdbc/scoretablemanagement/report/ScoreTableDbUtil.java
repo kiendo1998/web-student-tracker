@@ -409,7 +409,26 @@ List<Score> scores = new ArrayList<>();
 		//get a connection
 		myConn = dataSource.getConnection();
 		//create sql statement
-		String sql = "select id,diem.masv,tensv,diemqt,diemthi from diem inner join sinhvien on diem.masv=sinhvien.masv where madk=?";
+		String sql = "select id,diem.masv,tensv,diemqt,diemthi,case \r\n" + 
+				"when (0.3*DiemQT + 0.7*DiemThi) < 4 then 0\r\n" + 
+				"when ((0.3*DiemQT + 0.7*DiemThi) >=4 and (0.3*DiemQT + 0.7*DiemThi) <= 4.9) then 1.0\r\n" + 
+				"when ((0.3*DiemQT + 0.7*DiemThi) >=5 and (0.3*DiemQT + 0.7*DiemThi) <= 5.4) then 1.5\r\n" + 
+				"when ((0.3*DiemQT + 0.7*DiemThi) >=5.5 and (0.3*DiemQT + 0.7*DiemThi) <= 6.4) then 2\r\n" + 
+				"when ((0.3*DiemQT + 0.7*DiemThi) >=6.5 and (0.3*DiemQT + 0.7*DiemThi) <= 6.9) then 2.5\r\n" + 
+				"when ((0.3*DiemQT + 0.7*DiemThi) >=7.0 and (0.3*DiemQT + 0.7*DiemThi) <= 7.9) then 3\r\n" + 
+				"when ((0.3*DiemQT + 0.7*DiemThi) >=8.0 and (0.3*DiemQT + 0.7*DiemThi) <=8.4)  then 3.5\r\n" + 
+				"else 4\r\n" + 
+				"end as diemhe4,\r\n" + 
+				"case \r\n" + 
+				"when (0.3*DiemQT + 0.7*DiemThi) < 4 then \"F\"\r\n" + 
+				"when ((0.3*DiemQT + 0.7*DiemThi) >=4 and (0.3*DiemQT + 0.7*DiemThi) <= 4.9) then \"D\"\r\n" + 
+				"when ((0.3*DiemQT + 0.7*DiemThi) >=5 and (0.3*DiemQT + 0.7*DiemThi) <= 5.4) then \"D+\"\r\n" + 
+				"when ((0.3*DiemQT + 0.7*DiemThi) >=5.5 and (0.3*DiemQT + 0.7*DiemThi) <= 6.4) then \"C\"\r\n" + 
+				"when ((0.3*DiemQT + 0.7*DiemThi) >=6.5 and (0.3*DiemQT + 0.7*DiemThi) <= 6.9) then \"C+\"\r\n" + 
+				"when ((0.3*DiemQT + 0.7*DiemThi) >=7.0 and (0.3*DiemQT + 0.7*DiemThi) <= 7.9) then \"B\"\r\n" + 
+				"when ((0.3*DiemQT + 0.7*DiemThi) >=8.0 and (0.3*DiemQT + 0.7*DiemThi) <=8.4)  then \"B+\"\r\n" + 
+				"else \"A\"\r\n" + 
+				"end as diemchu from diem inner join sinhvien on diem.masv=sinhvien.masv where madk=?";
 		
 		myStmt = myConn.prepareStatement(sql);
 		
@@ -425,8 +444,10 @@ List<Score> scores = new ArrayList<>();
 			int scoreid = myRs.getInt("id");
 			float dqt = myRs.getFloat("diemqt");
 			float diemthi = myRs.getFloat("diemthi");
+			float diemhe4 = myRs.getFloat("diemhe4");
+			String diemchu = myRs.getString("diemchu");
 			//create new student object
-			Score tempScore = new Score(masv,tensv, dqt, diemthi,scoreid);
+			Score tempScore = new Score(masv,tensv, dqt, diemthi,scoreid,diemhe4,diemchu);
 			//add it to the list of sudents
 			scores.add(tempScore);
 		}

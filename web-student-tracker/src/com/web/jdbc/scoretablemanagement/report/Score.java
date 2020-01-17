@@ -9,17 +9,33 @@ public class Score {
 	private float dqt;
 	private float diemthi;
 	private int scoreid;
+	private float diemhe4;
+	private String diemchu;
 	
 	
 	
 	
-	public Score(int masv, String tensv, float dqt, float diemthi, int scoreid) {
+	public float getDiemhe4() {
+		return diemhe4;
+	}
+	public void setDiemhe4(float diemhe4) {
+		this.diemhe4 = diemhe4;
+	}
+	public String getDiemchu() {
+		return diemchu;
+	}
+	public void setDiemchu(String diemchu) {
+		this.diemchu = diemchu;
+	}
+	public Score(int masv, String tensv, float dqt, float diemthi, int scoreid, float diemhe4,String diemchu) {
 		super();
 		this.masv = masv;
 		this.tensv = tensv;
 		this.dqt = dqt;
 		this.diemthi = diemthi;
 		this.scoreid = scoreid;
+		this.diemhe4 = diemhe4;
+		this.diemchu = diemchu;
 	}
 	public Score(int scoretableid,int scoreid,int masv,  float dqt, float diemthi) {
 		super();

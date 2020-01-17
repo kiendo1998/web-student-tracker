@@ -82,6 +82,9 @@
 					<th>Tên môn học</th>
 					<th>Điểm Quá trình</th>
 					<th>Điểm thi</th>
+					<th>Điểm kết thúc</th>
+					<th>Điểm hệ 4</th>
+					<th>Điểm chữ</th>
 					<th>Kỳ học</th>
 					<th>Hành động</th>
 
@@ -109,6 +112,9 @@
 					<td>${tempScore.tenmh}</td>
 					<td>${tempScore.dqt}</td>
 					<td>${tempScore.diemthi}</td>
+					<td>${tempScore.diemthi*0.7+tempScore.dqt*0.3}</td>
+					<td>${tempScore.diemhe4}</td>
+					<td>${tempScore.diemchu}</td>
 					<td>${tempScore.kyhoc}</td>
 					<td>
 					<a href="${tempLink}">Cập nhật</a>

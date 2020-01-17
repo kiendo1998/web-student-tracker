@@ -15,6 +15,9 @@ public class StudentScore {
 	private float diemthi;
 	private String kyhoc;
 	private int id;
+	private float diemhe4;
+	private String diemchu;
+	
 	public StudentScore(float dqt, float diemthi) {
 		super();
 		this.dqt = dqt;
@@ -31,7 +34,7 @@ public class StudentScore {
 	}
 
 	public StudentScore(int masv, int mamh, String tenmh, float dqt, float diemthi, String kyhoc,
-			int id) {
+			int id, float diemhe4, String diemchu) {
 		super();
 		this.masv = masv;
 		this.mamh = mamh;
@@ -41,6 +44,9 @@ public class StudentScore {
 
 		this.kyhoc = kyhoc;
 		this.id = id;
+		this.diemhe4 = diemhe4;
+		this.diemchu = diemchu;
+		
 	}
 
 	public StudentScore(int mamh, String tenmh, float dqt, float diemthi, String kyhoc, int id) {
@@ -199,12 +205,31 @@ public class StudentScore {
 		this.sdt = sdt;
 	}
 
+	public float getDiemhe4() {
+		return diemhe4;
+	}
+
+	public void setDiemhe4(float diemhe4) {
+		this.diemhe4 = diemhe4;
+	}
+
+	public String getDiemchu() {
+		return diemchu;
+	}
+
+	public void setDiemchu(String diemchu) {
+		this.diemchu = diemchu;
+	}
+
 	@Override
 	public String toString() {
-		return "Student [masv=" + masv + ", tensv=" + tensv + ", ngaysinh=" + ngaysinh + ", gioitinh=" + gioitinh
-				+ ", diachi=" + diachi +  "]";
+		return "StudentScore [masv=" + masv + ", tensv=" + tensv + ", ngaysinh=" + ngaysinh + ", gioitinh=" + gioitinh
+				+ ", diachi=" + diachi + ", malop=" + malop + ", sdt=" + sdt + ", mamh=" + mamh + ", tenmh=" + tenmh
+				+ ", dqt=" + dqt + ", diemthi=" + diemthi + ", kyhoc=" + kyhoc + ", id=" + id + ", diemhe4=" + diemhe4
+				+ ", diemchu=" + diemchu + "]";
 	}
-	
+
+
 	
 	
 	
