@@ -18,7 +18,8 @@
 
 	<div id="wrapper">
 		<div id="header" >
-			<div class="tieude"><a href="../login.jsp" class="w3-button w3-black">Đăng xuất</a></div>
+			<div class="tieude"><a href="login" class="w3-button w3-black">Đăng nhập</a></div>
+			<div class="tieude"><a href="logout" class="w3-button w3-black">Đăng xuất</a></div>
 			<a href="../StudentControllerServlet"><img src="../images/LOGO_DHXD.png" width="80px" height="80px" class="tieude1" /></a>
 			
 			 <div class="tieude2">Trường đại học Xây Dựng</div>
@@ -27,6 +28,7 @@
 		
 		</div>
 	 <ul>
+	 <li><a class="active" href="StudentControllerServlet">Trang chủ</a></li>
   <li><a class="active" href="../StudentControllerServlet">Quản lý sinh viên</a></li>
   <li><a href="../SubjectControllerServlet">Quản lý môn học</a></li>
   <li class="dropdown">
@@ -47,6 +49,7 @@
   </li>
 <li><a class="active" href="../ClassControllerServlet">Quản lý lớp</a></li>
 <li><a class="active" href="../FaculityControllerServlet">Quản lý Khoa</a></li>
+<li><a class="active" href="userInfo">Thông tin người dùng</a></li>
 </ul>
 	</div>
 </body>	

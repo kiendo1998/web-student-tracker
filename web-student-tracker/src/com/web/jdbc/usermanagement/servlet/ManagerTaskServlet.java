@@ -23,7 +23,7 @@ public class ManagerTaskServlet extends HttpServlet {
  
       RequestDispatcher dispatcher //
             = this.getServletContext()//
-                  .getRequestDispatcher("/WEB-INF/views/managerTaskView.jsp");
+                  .getRequestDispatcher("/managerTaskView.jsp");
  
       dispatcher.forward(request, response);
    }

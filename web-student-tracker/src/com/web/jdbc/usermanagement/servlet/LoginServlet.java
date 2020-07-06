@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
  
         RequestDispatcher dispatcher //
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
+                = this.getServletContext().getRequestDispatcher("/login.jsp");
  
         dispatcher.forward(request, response);
     }
@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("errorMessage", errorMessage);
  
             RequestDispatcher dispatcher //
-                    = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
+                    = this.getServletContext().getRequestDispatcher("/login.jsp");
  
             dispatcher.forward(request, response);
             return;

@@ -17,12 +17,12 @@ public class DataDAO {
     private static void initUsers() {
  
         // User này có 1 vai trò là EMPLOYEE.
-        UserAccount emp = new UserAccount("employee1", "123", UserAccount.GENDER_MALE, //
-                SecurityConfig.ROLE_EMPLOYEE);
+        UserAccount emp = new UserAccount("student1", "123", UserAccount.GENDER_MALE, //
+                SecurityConfig.ROLE_STUDENT);
  
         // User này có 2 vai trò EMPLOYEE và MANAGER.
-        UserAccount mng = new UserAccount("manager1", "123", UserAccount.GENDER_MALE, //
-                SecurityConfig.ROLE_EMPLOYEE, SecurityConfig.ROLE_MANAGER);
+        UserAccount mng = new UserAccount("admin1", "123", UserAccount.GENDER_MALE, //
+                 SecurityConfig.ROLE_ADMIN);
  
         mapUsers.put(emp.getUserName(), emp);
         mapUsers.put(mng.getUserName(), mng);

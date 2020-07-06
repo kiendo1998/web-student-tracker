@@ -8,8 +8,8 @@ import java.util.Set;
  
 public class SecurityConfig {
  
-    public static final String ROLE_MANAGER = "MANAGER";
-    public static final String ROLE_EMPLOYEE = "EMPLOYEE";
+    public static final String ROLE_ADMIN = "ADMIN";
+    public static final String ROLE_STUDENT = "STUDENT";
  
     // String: Role
     // List<String>: urlPatterns.
@@ -27,15 +27,21 @@ public class SecurityConfig {
         urlPatterns1.add("/userInfo");
         urlPatterns1.add("/employeeTask");
  
-        mapConfig.put(ROLE_EMPLOYEE, urlPatterns1);
+        mapConfig.put(ROLE_STUDENT, urlPatterns1);
  
         // Cấu hình cho vai trò "MANAGER".
         List<String> urlPatterns2 = new ArrayList<String>();
  
         urlPatterns2.add("/userInfo");
         urlPatterns2.add("/managerTask");
+        urlPatterns2.add("/ClassControllerServlet");
+        urlPatterns2.add("/SubjectControllerServlet");
+        urlPatterns2.add("/FaculityControllerServlet");
+        urlPatterns2.add("/ScoreControllerServlet");
+        urlPatterns2.add("/ScoreTableControllerServlet");
+        urlPatterns2.add("/ScoreTableControllerServletReport");
  
-        mapConfig.put(ROLE_MANAGER, urlPatterns2);
+        mapConfig.put(ROLE_ADMIN, urlPatterns2);
     }
  
     public static Set<String> getAllAppRoles() {
