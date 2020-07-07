@@ -80,6 +80,9 @@ public class StudentControllerServlet extends HttpServlet {
 			case "SEARCH":
                 searchStudents(request, response);
                 break;
+			case "SHOW":
+				showAdd(request, response);
+                break;
 			
 			}
 		// list the sudents ... in MVC fashion
@@ -223,5 +226,14 @@ public class StudentControllerServlet extends HttpServlet {
 		}
 	
 	}
+	
+	
+	private void showAdd(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/StudentManage/add-student-form.jsp");
+		dispatcher.forward(request, response);
+	}
+	
+	
 
 }

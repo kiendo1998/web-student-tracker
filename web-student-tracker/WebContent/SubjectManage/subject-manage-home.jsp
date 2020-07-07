@@ -23,7 +23,7 @@
 		<div id="content">
 		<!-- put new button: Add new subject -->
 		<input type="button" value="Thêm môn học"
-				onclick="window.location.href='SubjectManage/add-subject-form.jsp';return false;"
+				onclick="window.location.href='SubjectControllerServlet?command=SHOW';return false;"
 				class="add-student-button"
 				/>
 		 <!--  add a search box -->

@@ -35,7 +35,7 @@
 <!--             </div> -->
 <!--         </div> -->
 <!--     </div> -->
-<h3>Login Page</h3>
+<h3>Đăng nhập</h3>
  
       <p style="color: red;">${errorString}</p>
  
@@ -50,19 +50,15 @@
                <td>Password</td>
                <td><input type="password" name="password" value= "${user.password}" /> </td>
             </tr>
-          
+      		
             <tr>
                <td colspan ="2">
-                  <input type="submit" value= "Submit" />
+                  <input type="submit" value= "Đăng nhập" />
                   <a href="${pageContext.request.contextPath}/">Cancel</a>
                </td>
             </tr>
          </table>
       </form>
- 
-      <p style="color:blue;">Login with:</p>
-       
-      student1/123 <br>
-      admin1/123
+
 </body>
 </html>

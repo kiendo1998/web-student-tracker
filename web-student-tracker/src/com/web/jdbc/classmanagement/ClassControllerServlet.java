@@ -79,6 +79,9 @@ public class ClassControllerServlet extends HttpServlet {
 			case "SEARCH":
                 searchClasses(request, response);
                 break;
+			case "SHOW":
+				showAdd(request, response);
+                break;
 			
 			}
 		// list the class ... in MVC fashion
@@ -102,7 +105,7 @@ public class ClassControllerServlet extends HttpServlet {
         request.setAttribute("CLASS_LIST", classes);
                 
         // send to JSP page (view)
-        RequestDispatcher dispatcher = request.getRequestDispatcher("ClassManage/list-classes.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/ClassManage/list-classes.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -161,7 +164,7 @@ public class ClassControllerServlet extends HttpServlet {
 		request.setAttribute("THE_CLASS", theClass);
 		//send to jsp page: update-class-form.jsp
 		RequestDispatcher dispatcher = 
-				request.getRequestDispatcher("ClassManage/update-class-form.jsp");
+				request.getRequestDispatcher("/ClassManage/update-class-form.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -202,6 +205,10 @@ public class ClassControllerServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	
-	
+	private void showAdd(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/ClassManage/add-class-form.jsp");
+		dispatcher.forward(request, response);
+	}
 
 }

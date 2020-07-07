@@ -10,6 +10,7 @@ public class SecurityConfig {
  
     public static final String ROLE_ADMIN = "ADMIN";
     public static final String ROLE_STUDENT = "STUDENT";
+    public static final String ROLE_LECTURER = "LECTURER";
  
     // String: Role
     // List<String>: urlPatterns.
@@ -26,6 +27,7 @@ public class SecurityConfig {
  
         urlPatterns1.add("/userInfo");
         urlPatterns1.add("/employeeTask");
+
  
         mapConfig.put(ROLE_STUDENT, urlPatterns1);
  
@@ -42,6 +44,15 @@ public class SecurityConfig {
         urlPatterns2.add("/ScoreTableControllerServletReport");
  
         mapConfig.put(ROLE_ADMIN, urlPatterns2);
+        
+        
+        List<String> urlPatterns3 = new ArrayList<String>();
+        
+        urlPatterns3.add("/userInfo");
+        urlPatterns3.add("/xemlichday");
+        mapConfig.put(ROLE_LECTURER, urlPatterns3);
+        
+        
     }
  
     public static Set<String> getAllAppRoles() {

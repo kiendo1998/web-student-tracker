@@ -17,15 +17,19 @@ public class DataDAO {
     private static void initUsers() {
  
         // User này có 1 vai trò là EMPLOYEE.
-        UserAccount emp = new UserAccount("student1", "123", UserAccount.GENDER_MALE, //
+        UserAccount emp = new UserAccount("student", "123", UserAccount.GENDER_MALE, //
                 SecurityConfig.ROLE_STUDENT);
  
-        // User này có 2 vai trò EMPLOYEE và MANAGER.
-        UserAccount mng = new UserAccount("admin1", "123", UserAccount.GENDER_MALE, //
+        // User này có 2 vai trò MANAGER.
+        UserAccount mng = new UserAccount("admin", "admin", UserAccount.GENDER_MALE, //
                  SecurityConfig.ROLE_ADMIN);
+        
+        UserAccount lec = new UserAccount("lecturer", "123", UserAccount.GENDER_FEMALE, //
+                SecurityConfig.ROLE_LECTURER);
  
         mapUsers.put(emp.getUserName(), emp);
         mapUsers.put(mng.getUserName(), mng);
+        mapUsers.put(lec.getUserName(), lec);
     }
  
     // Tìm kiếm người dùng theo userName và password.

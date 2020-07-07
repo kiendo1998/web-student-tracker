@@ -54,13 +54,16 @@
 		<li><a class="active" href="ClassControllerServlet">Quản lý lớp</a></li>
 		<li><a class="active" href="FaculityControllerServlet">Quản lý khoa</a></li>
 	</c:if>
- 	<c:if test="${loginedUser.getRoles().contains('ADMIN') or loginedUser.getRoles().contains('STUDENT')}">
+ 	<c:if test="${loginedUser.getRoles().contains('ADMIN') or loginedUser.getRoles().contains('STUDENT') or loginedUser.getRoles().contains('LECTURER')}">
 		<li><a class="active" href="userInfo">Thông tin người dùng</a></li>
 	</c:if>
 	<c:if test="${loginedUser.getRoles().contains('STUDENT')}">
 		<li><a class="active" href="userInfo">Xem điểm</a></li>
 		<li><a class="active" href="userInfo">Xem thời khóa biểu</a></li>
 		<li><a class="active" href="userInfo">Xem học phí</a></li>
+	</c:if>
+	<c:if test="${loginedUser.getRoles().contains('LECTURER')}">
+		<li><a class="active" href="userInfo">Xem lịch dạy</a></li>
 	</c:if>
 </ul>
 	</div>

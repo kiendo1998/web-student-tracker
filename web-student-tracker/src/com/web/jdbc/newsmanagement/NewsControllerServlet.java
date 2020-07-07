@@ -82,6 +82,9 @@ public class NewsControllerServlet extends HttpServlet {
 			case "SEARCH":
                 searchNewses(request, response);
                 break;
+			case "SHOW":
+				showAdd(request, response);
+                break;
 			
 			}
 		// list the class ... in MVC fashion
@@ -176,7 +179,7 @@ public class NewsControllerServlet extends HttpServlet {
 		
 		// read class infor from form data
 		//int masv=Integer.parseInt(request.getParameter("masv"));
-		String newstitle = request.getParameter("tenlop");
+		String newstitle = request.getParameter("newstitle");
 		String newscontent = request.getParameter("newscontent");
 		String username = request.getParameter("username");
 		//create a new class object
@@ -215,6 +218,10 @@ public class NewsControllerServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 	
-	
+	private void showAdd(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/NewsManage/add-news-form.jsp");
+		dispatcher.forward(request, response);
+	}
 
 }

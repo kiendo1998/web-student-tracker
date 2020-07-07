@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
 <!DOCTYPE html>
 <html>
@@ -10,11 +11,19 @@
  
      <jsp:include page="header.jsp"/>
  
-      <h3>Hello: ${loginedUser.userName}</h3>
+      <h3>Xin chào: ${loginedUser.userName}</h3>
  
       User Name: <b>${loginedUser.userName}</b>
       <br />
-      Gender: ${loginedUser.gender } <br />
+      
+      <c:if test="${loginedUser.getGender()=='M'}">
+		Giới tính: Nam <br />
+		</c:if>
+		<c:if test="${loginedUser.getGender()=='F'}">
+		Giới tính: Nữ <br />
+		</c:if>
+      
+      
  
  
    </body>

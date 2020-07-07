@@ -23,7 +23,7 @@
 		<div id="content">
 		<!-- put new button: Add new subject -->
 		<input type="button" value="Thêm lớp"
-				onclick="window.location.href='ClassManage/add-class-form.jsp';return false;"
+				onclick="window.location.href='ClassControllerServlet?command=SHOW';return false;"
 				class="add-student-button"
 				/>
 		 <!--  add a search box -->

@@ -89,6 +89,9 @@ public class StudentScoreControllerServlet extends HttpServlet {
 			case "SEARCH":
                 searchStudents(request, response);
                 break;
+			case "SHOW":
+				showAdd(request, response);
+                break;
 			
 			}
 		// list the sudents ... in MVC fashion
@@ -283,6 +286,12 @@ public class StudentScoreControllerServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 	
+	
+	private void showAdd(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/StudentScoreManage/add-student-form.jsp");
+		dispatcher.forward(request, response);
+	}
 	
 
 }

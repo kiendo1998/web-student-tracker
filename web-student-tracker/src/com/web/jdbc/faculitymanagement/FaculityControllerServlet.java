@@ -79,6 +79,9 @@ public class FaculityControllerServlet extends HttpServlet {
 			case "SEARCH":
                 searchFaculities(request, response);
                 break;
+			case "SHOW":
+				showAdd(request, response);
+                break;
 			
 			}
 		// list the sudents ... in MVC fashion
@@ -202,6 +205,10 @@ public class FaculityControllerServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	
-	
+	private void showAdd(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/FaculityManage/add-faculity-form.jsp");
+		dispatcher.forward(request, response);
+	}
 
 }

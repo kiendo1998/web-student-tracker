@@ -23,7 +23,7 @@
 		<div id="content">
 		<!-- put new button: Add new student -->
 		<input type="button" value="Thêm Bảng Điểm"
-				onclick="window.location.href='ScoretableManage/add-scoretable-form.jsp';return false;"
+				onclick="window.location.href='ScoreTableControllerServlet?command=SHOW';return false;"
 				class="add-student-button"
 				/>
 		 <!--  add a search box -->

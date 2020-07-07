@@ -91,6 +91,9 @@ public class ScoreTableControllerServlet extends HttpServlet {
 			case "SEARCH":
                 searchScoretables(request, response);
                 break;
+			case "SHOW":
+				showAdd(request, response);
+                break;
 			
 			}
 		// list the sudents ... in MVC fashion
@@ -256,6 +259,10 @@ public class ScoreTableControllerServlet extends HttpServlet {
 				listScores(request, response);
 			}
 	
-	
+	private void showAdd(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/ScoretableManage/add-scoretable-form.jsp");
+		dispatcher.forward(request, response);
+	}
 
 }

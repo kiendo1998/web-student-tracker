@@ -76,6 +76,9 @@ public class SubjectControllerServlet extends HttpServlet {
 		case "SSEARCH":
 			searchSubject(request,response);
 			break;
+		case "SHOW":
+			showAdd(request, response);
+            break;
 		default:
 			listSubjects(request, response);
 		
@@ -176,7 +179,11 @@ public class SubjectControllerServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 		
 	}
-	
+	private void showAdd(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/SubjectManage/add-subject-form.jsp");
+		dispatcher.forward(request, response);
+	}
 	
 }
 

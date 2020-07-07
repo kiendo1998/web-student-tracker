@@ -11,11 +11,11 @@
 </head>
 
 <body>
-<jsp:include page="../add-header.jsp"/>
+<jsp:include page="../header.jsp"/>
 	 
 	<div id="container">
 		<h3>Thêm môn học</h3>
-		<form action="../SubjectControllerServlet" method="GET">
+		<form action="SubjectControllerServlet" method="GET">
 
 			<input type="hidden" name="command" value="SADD" />
 
@@ -46,7 +46,7 @@
 		</form>
 		<div style="clear: both;"></div>
 		<p>
-			<a href="../SubjectControllerServlet">Trở về</a>
+			<a href="SubjectControllerServlet">Trở về</a>
 		</p>
 
 	</div>

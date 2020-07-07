@@ -23,7 +23,7 @@
 		<div id="content">
 		<!-- put new button: Add new student -->
 		<input type="button" value="Thêm khoa"
-				onclick="window.location.href='FaculityManage/add-faculity-form.jsp';return false;"
+				onclick="window.location.href='FaculityControllerServlet?command=SHOW';return false;"
 				class="add-student-button"
 				/>
 		 <!--  add a search box -->

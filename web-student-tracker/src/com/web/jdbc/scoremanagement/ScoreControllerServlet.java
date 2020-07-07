@@ -186,8 +186,12 @@ public class ScoreControllerServlet extends HttpServlet {
 		
 	}
 
-	
-	
+//	private void showAdd(HttpServletRequest request, HttpServletResponse response)
+//			throws Exception {
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("/NewsManager/add-news-form.jsp");
+//		dispatcher.forward(request, response);
+//	}
+//	
 	
 }
 

@@ -4,7 +4,7 @@
 </head>
 <div id="header">
 <p style="float:left" id="kien">
-Design by Kiên, Phương, Hoàng, Hiển
+Design by KienDo
 </p>
 
 <p align="center" id="kien">
