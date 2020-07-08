@@ -138,6 +138,12 @@ table {
 	font-family: Tahoma,Verdana,Segoe,sans-serif;
 	width:100%;
 }
+.user {   
+	border-collapse:collapse;
+	border-bottom:1px solid white;
+	font-family: Tahoma,Verdana,Segoe,sans-serif;
+	width:50%;
+}
  
 th {
 	border-bottom:1px solid gray;

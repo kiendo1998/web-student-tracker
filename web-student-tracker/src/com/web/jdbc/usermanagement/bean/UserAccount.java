@@ -8,6 +8,7 @@ public class UserAccount {
    public static final String GENDER_FEMALE = "F";
  
    private String userName;
+   public String userName0;
    private String gender;
    private String password;
  
@@ -17,20 +18,48 @@ public class UserAccount {
  
    }
  
-   public UserAccount(String userName, String password, String gender, String... roles) {
-      this.userName = userName;
-      this.password = password;
-      this.gender = gender;
+//   public UserAccount(String userName, String password, String gender, String... roles) {
+//      this.userName = userName;
+//      this.password = password;
+//      this.gender = gender;
+// 
+//      this.roles = new ArrayList<String>();
+//      if (roles != null) {
+//         for (String r : roles) {
+//            this.roles.add(r);
+//         }
+//      }
+//   }
+   
+   public String getUserName0() {
+	return userName0;
+}
+
+public void setUserName0(String userName0) {
+	this.userName0 = userName0;
+}
+
+
+
+public UserAccount(String userName, String password, String... roles) {
+	      this.userName = userName;
+	      this.password = password;
+
+	 
+	      this.roles = new ArrayList<String>();
+	      if (roles != null) {
+	         for (String r : roles) {
+	            this.roles.add(r);
+	         }
+	      }
+	   }
  
-      this.roles = new ArrayList<String>();
-      if (roles != null) {
-         for (String r : roles) {
-            this.roles.add(r);
-         }
-      }
-   }
- 
-   public String getUserName() {
+   public UserAccount(String userName, String password) {
+	this.userName = userName;
+	this.password = password;
+}
+
+public String getUserName() {
       return userName;
    }
  

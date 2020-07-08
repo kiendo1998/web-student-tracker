@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
+    	
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
         UserAccount userAccount = DataDAO.findUser(userName, password);

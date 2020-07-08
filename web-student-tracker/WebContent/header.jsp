@@ -58,12 +58,11 @@
 		<li><a class="active" href="userInfo">Thông tin người dùng</a></li>
 	</c:if>
 	<c:if test="${loginedUser.getRoles().contains('STUDENT')}">
-		<li><a class="active" href="userInfo">Xem điểm</a></li>
-		<li><a class="active" href="userInfo">Xem thời khóa biểu</a></li>
-		<li><a class="active" href="userInfo">Xem học phí</a></li>
+		<li><a class="active" href="UserServlet?command=XD&username=${loginedUser.userName}">Xem điểm</a></li>
+		<li><a class="active" href="UserServlet?username=${loginedUser.userName}">Xem thời khóa biểu</a></li>	
 	</c:if>
 	<c:if test="${loginedUser.getRoles().contains('LECTURER')}">
-		<li><a class="active" href="userInfo">Xem lịch dạy</a></li>
+		<li><a class="active" href="UserServlet?command=LD&username=${loginedUser.userName}">Xem lịch dạy</a></li>
 	</c:if>
 </ul>
 	</div>

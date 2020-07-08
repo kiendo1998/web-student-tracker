@@ -22,10 +22,7 @@
 	<div id="container">
 		<div id="content">
 		<!-- put new button: Add new subject -->
-		<input type="button" value="Thêm tin tức"
-				onclick="window.location.href='NewsManage/add-news-form.jsp';return false;"
-				class="add-student-button"
-				/>
+		
 		 <!--  add a search box -->
             <form action="NewsControllerServlet" method="GET">
         
