@@ -215,34 +215,20 @@ public class ScoreTableControllerServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	private void listScores(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String theScoreId = request.getParameter("scoretableId");
-		//get student from database (db util)
-//		Score theScore = scoretableDbUtil.getScoretable(theScoreId);
-				//get students from db util
+				String theScoreId = request.getParameter("scoretableId");
 				List<Score> scores = scoretableDbUtil.getScores(theScoreId);
-				//add students to the request
 				request.setAttribute("SCORE_LIST", scores);
-				//send to jsp page (view)
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/ScoretableManage/add-scores.jsp");
 				dispatcher.forward(request, response);
 			}
 	
 	private void addScores(HttpServletRequest request, HttpServletResponse response) throws Exception {
-				
-				//read student infor from form data
 				int scoretableid=Integer.parseInt(request.getParameter("scoretableId"));
 				int masv=Integer.parseInt(request.getParameter("masv"));
 				float dqt=Float.parseFloat(request.getParameter("dqt"));
 				float diemthi=Float.parseFloat(request.getParameter("diemthi"));
-				//create a new student object
 				Score theScore = new Score(scoretableid,masv, dqt, diemthi);
-				
-				//perform update on database
 				scoretableDbUtil.addScore(theScore);
-				
-				//send them abck to the "list students" page
-//				loadScore(request, response);
-//			listScores(request, response);
 			loadScore(request, response);
 			}
 	private void loadScore(HttpServletRequest request, HttpServletResponse response) throws Exception{

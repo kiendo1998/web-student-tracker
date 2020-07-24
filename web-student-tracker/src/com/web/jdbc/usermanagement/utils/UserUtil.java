@@ -3,6 +3,7 @@ package com.web.jdbc.usermanagement.utils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,8 @@ import javax.sql.DataSource;
 
 import com.web.jdbc.foruser.Diem;
 import com.web.jdbc.foruser.TKB;
+import com.web.jdbc.scoretablemanagement.Score;
+import com.web.jdbc.scoretablemanagement.ScoreTable;
 import com.web.jdbc.studentscoremanagement.StudentScore;
 import com.web.jdbc.usermanagement.bean.UserAccount;
 
@@ -281,7 +284,258 @@ public class UserUtil {
 		
 	}
 	
+public void addScore(Score theScore) throws Exception {
 		
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		try {
+			//get db connection
+			myConn = dataSource.getConnection();
+			//create sql for insert
+			String sql = "insert into diem(madk,masv,diemqt,diemthi)"
+			+ "value (?, ?, ?, ?)"	;	
+			myStmt = myConn.prepareStatement(sql);
+			//set the param values for the student
+			//myStmt.setInt(1, theStudent.getMasv());
+			myStmt.setInt(1, theScore.getScoretableid());
+			myStmt.setInt(2, theScore.getMasv());
+			myStmt.setFloat(3, theScore.getDqt());
+			myStmt.setFloat(4, theScore.getDiemthi());
+			
+			//execute sql insert
+			myStmt.execute();
+		}
+		finally {
+		
+		//clean up JDBC object
+			close(myConn, myStmt, null);
+		}
+		
+		
+	}
+
+	public ScoreTable getScoretable(String theScoretableId) throws Exception {
+		ScoreTable theScoretable = null;
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		ResultSet myRs = null;
+		int scoretableId;
+		try {
+			//convert student id to int
+			scoretableId = Integer.parseInt(theScoretableId);
+					
+			//get connection to database
+			myConn = dataSource.getConnection();
+			//create sql to get selected student
+			String sql = "select * from dangky where madk=?";
+			//create prepared statement
+			myStmt = myConn.prepareStatement(sql);
+			//set param
+			myStmt.setInt(1, scoretableId);
+			//execute statement
+			myRs = myStmt.executeQuery();
+			//retrieve data from result set row
+			if (myRs.next()) {
+				int scoretableid = myRs.getInt("madk");
+				int mamh = myRs.getInt("mamh");
+				String kyhoc = myRs.getString("kyhoc");
+				//use the studentId during construction
+				theScoretable = new ScoreTable(scoretableid, mamh, kyhoc);
+			}
+			else {
+				throw new Exception("không tìm thấy bảng điểm  có mã: " + scoretableId);
+			}	
+			return theScoretable;
+		}
+		finally {
+			//clean up JDBC object
+			close(myConn, myStmt, myRs);
+		}
+	}
+	public List<Score> getScores(String theScoretableId) throws Exception{	
+		List<Score> scores = new ArrayList<>();
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		ResultSet myRs = null;
+		int scoretableId;
+		try {
+			scoretableId = Integer.parseInt(theScoretableId);
+		//get a connection
+		myConn = dataSource.getConnection();
+		//create sql statement
+		String sql = "select id,masv,diemqt,diemthi from diem where madk=?";
+		
+		myStmt = myConn.prepareStatement(sql);
+		
+		//set param
+		myStmt.setInt(1, scoretableId);
+		//execute query
+		myRs = myStmt.executeQuery();
+		//process result set
+		while (myRs.next()) {
+			//retrieve data from result set row
+			int masv = myRs.getInt("masv");
+			int scoreid = myRs.getInt("id");
+			float dqt = myRs.getFloat("diemqt");
+			float diemthi = myRs.getFloat("diemthi");
+			//create new student object
+			Score tempScore = new Score(masv, dqt, diemthi,scoreid);
+			//add it to the list of sudents
+			scores.add(tempScore);
+		}	
+			return scores;	
+		}
+		finally {
+			//close JDBC objects
+			close(myConn, myStmt, myRs);
+		}
+		
+	}
+	public List<ScoreTable> getScoretables(String username) throws Exception{
+		List<ScoreTable> scoretables = new ArrayList<>();
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		ResultSet myRs = null;
+		try {
+		myConn = dataSource.getConnection();
+		String sql = "select * from monhoc inner join dangky on monhoc.mamh=dangky.mamh inner join user on dangky.magv=user.magv where username=?;";
+		myStmt = myConn.prepareStatement(sql);
+		myStmt.setString(1, username);
+		myRs = myStmt.executeQuery();
+		while (myRs.next()) {
+
+			int scoretableid = myRs.getInt("madk");
+			int mamh = myRs.getInt("monhoc.MaMH");
+			String tenmh = myRs.getString("tenmh");
+			String kyhoc = myRs.getString("KyHoc");
+			ScoreTable tempScoretable = new ScoreTable(scoretableid, mamh, kyhoc, tenmh);
+			scoretables.add(tempScoretable);
+		}
+		
+			
+			
+			return scoretables;
+			
+		}
+		finally {
+			//close JDBC objects
+			close(myConn, myStmt, myRs);
+		}
+		
+	}
+	public List<ScoreTable> getRegistedScoretables(String username) throws Exception{
+		List<ScoreTable> scoretables = new ArrayList<>();
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		ResultSet myRs = null;
+		try {
+		myConn = dataSource.getConnection();
+		String sql = "select * from monhoc inner join dangky on monhoc.mamh=dangky.mamh inner join diem on dangky.madk=diem.madk inner join  user on diem.masv=user.masv where username=?;";
+		myStmt = myConn.prepareStatement(sql);
+		myStmt.setString(1, username);
+		myRs = myStmt.executeQuery();
+		while (myRs.next()) {
+
+			int scoretableid = myRs.getInt("madk");
+			int mamh = myRs.getInt("monhoc.MaMH");
+			String tenmh = myRs.getString("tenmh");
+			String kyhoc = myRs.getString("KyHoc");
+			ScoreTable tempScoretable = new ScoreTable(scoretableid, mamh, kyhoc, tenmh);
+			scoretables.add(tempScoretable);
+		}
+		
+			
+			
+			return scoretables;
+			
+		}
+		finally {
+			//close JDBC objects
+			close(myConn, myStmt, myRs);
+		}
+		
+		
+	}
+	
+	public List<ScoreTable> getScoretablesToRegister(String username) throws Exception{
+		List<ScoreTable> scoretables = new ArrayList<>();
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		ResultSet myRs = null;
+		try {
+		myConn = dataSource.getConnection();
+		String sql = "select * from monhoc inner join  dangky on monhoc.mamh=dangky.mamh where dangky.madk not in (select dangky.madk from dangky left join diem on dangky.madk=diem.madk inner join  user on diem.masv=user.masv where  username=? group by dangky.madk) group by madk;";
+		myStmt = myConn.prepareStatement(sql);
+		myStmt.setString(1, username);
+		myRs = myStmt.executeQuery();
+		while (myRs.next()) {
+
+			int scoretableid = myRs.getInt("madk");
+			int mamh = myRs.getInt("monhoc.MaMH");
+			String tenmh = myRs.getString("tenmh");
+			String kyhoc = myRs.getString("KyHoc");
+			ScoreTable tempScoretable = new ScoreTable(scoretableid, mamh, kyhoc, tenmh);
+			scoretables.add(tempScoretable);
+		}
+			return scoretables;
+			
+		}
+		finally {
+			//close JDBC objects
+			close(myConn, myStmt, myRs);
+		}
+	}
+	
+public void registerSubject(Score theScore) throws Exception {
+		
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		try {
+			//get db connection
+			myConn = dataSource.getConnection();
+			
+			//create sql for insert
+			String sql = "insert into diem(madk,masv)"
+			+ "value (?, ?)"	;	
+			myStmt = myConn.prepareStatement(sql);
+			myStmt.setInt(1, theScore.getScoretableid());
+			myStmt.setInt(2, theScore.getMasv());
+			
+			//execute sql insert
+			myStmt.execute();
+		}
+		finally {
+		
+		//clean up JDBC object
+			close(myConn, myStmt, null);
+		}
+		
+		
+	}
+
+public int getMaSV(String username) throws SQLException {
+	int masv = 0;
+	Connection myConn = null;
+	PreparedStatement myStmt = null;
+	ResultSet myRs = null;
+	try {
+	myConn = dataSource.getConnection();
+	String sql = "select * from user where username=?;";
+	myStmt = myConn.prepareStatement(sql);
+	myStmt.setString(1, username);
+	myRs = myStmt.executeQuery();
+	while (myRs.next()) {
+
+		masv = myRs.getInt("masv");
+	}
+		return masv;
+		
+	}
+	finally {
+		//close JDBC objects
+		close(myConn, myStmt, myRs);
+	}
+}
 		
 
 }

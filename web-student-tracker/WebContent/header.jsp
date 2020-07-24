@@ -59,10 +59,12 @@
 	</c:if>
 	<c:if test="${loginedUser.getRoles().contains('STUDENT')}">
 		<li><a class="active" href="UserServlet?command=XD&username=${loginedUser.userName}">Xem điểm</a></li>
-		<li><a class="active" href="UserServlet?username=${loginedUser.userName}">Xem thời khóa biểu</a></li>	
+		<li><a class="active" href="UserServlet?username=${loginedUser.userName}">Xem thời khóa biểu</a></li>
+		<li><a class="active" href="UserServlet?command=DKMH&username=${loginedUser.userName}">Đăng ký môn học</a></li>	
 	</c:if>
 	<c:if test="${loginedUser.getRoles().contains('LECTURER')}">
 		<li><a class="active" href="UserServlet?command=LD&username=${loginedUser.userName}">Xem lịch dạy</a></li>
+		<li><a class="active" href="UserServlet?command=ND&username=${loginedUser.userName}">Nhập điểm lớp</a></li>
 	</c:if>
 </ul>
 	</div>

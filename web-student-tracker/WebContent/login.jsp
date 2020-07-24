@@ -16,13 +16,13 @@
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
                         <form id="login-form" class="form" action="${pageContext.request.contextPath}/login" method="POST">
-                            <h3 class="text-center text-info">Login</h3>
+                            <h3 class="text-center text-info">Đăng nhập</h3>
                             <div class="form-group">
                                 <label for="username" class="text-info">Username:</label><br>
                                 <input type="text" name="userName" id="username" value= "${user.userName}" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="password" class="text-info">Password:</label><br>
+                                <label for="password" class="text-info">Mật khẩu:</label><br>
                                 <input type="password" name="password" id="password" value= "${user.password}" class="form-control">
                             </div>
                             <div class="form-group">

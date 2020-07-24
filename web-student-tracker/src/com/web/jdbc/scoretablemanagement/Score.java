@@ -9,10 +9,27 @@ public class Score {
 	private float dqt;
 	private float diemthi;
 	private int scoreid;
+	private String username;
 	
 	
 	
 	
+	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	public Score(int masv, int scoretableid) {
+		this.masv = masv;
+		this.scoretableid = scoretableid;
+	}
+	public Score(int scoretableid, String username) {
+		this.scoretableid = scoretableid;
+		this.username = username;
+	}
 	public Score(int masv, float dqt, float diemthi, int scoreid) {
 		super();
 		this.masv = masv;
