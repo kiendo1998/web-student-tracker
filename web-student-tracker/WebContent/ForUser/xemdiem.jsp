@@ -34,9 +34,10 @@
 					<th>Tên môn học</th>
 					<th>ĐQT</th>
 					<th>Điểm thi</th>
-					<th>Kỳ học</th>
+					<th>Điểm kết thúc</th>
 					<th>Điểm hệ 4</th>
 					<th>Điểm chữ</th>
+					<th>Kỳ học</th>
 					
 				</tr>
 				
@@ -46,9 +47,10 @@
 					<td>${tempD.tenmh}</td>
 					<td>${tempD.dqt}</td>
 					<td>${tempD.diemthi}</td>
-					<td>${tempD.kyhoc}</td>
+					<td>${tempD.diemthi*0.7+tempD.dqt*0.3}</td>
 					<td>${tempD.diemhe4}</td>
 					<td>${tempD.diemchu}</td>
+					<td>${tempD.kyhoc}</td>
 
 				</tr>
 				

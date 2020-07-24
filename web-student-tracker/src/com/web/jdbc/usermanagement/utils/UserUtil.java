@@ -292,15 +292,14 @@ public void addScore(Score theScore) throws Exception {
 			//get db connection
 			myConn = dataSource.getConnection();
 			//create sql for insert
-			String sql = "insert into diem(madk,masv,diemqt,diemthi)"
-			+ "value (?, ?, ?, ?)"	;	
+			String sql = "update diem set madk=?,masv=?,diemqt=?,diemthi=? where madk=? and masv=?";
 			myStmt = myConn.prepareStatement(sql);
-			//set the param values for the student
-			//myStmt.setInt(1, theStudent.getMasv());
 			myStmt.setInt(1, theScore.getScoretableid());
 			myStmt.setInt(2, theScore.getMasv());
 			myStmt.setFloat(3, theScore.getDqt());
 			myStmt.setFloat(4, theScore.getDiemthi());
+			myStmt.setInt(5, theScore.getScoretableid());
+			myStmt.setInt(6, theScore.getMasv());
 			
 			//execute sql insert
 			myStmt.execute();
