@@ -18,7 +18,7 @@
 		<form action="NewsControllerServlet" method="GET">
 		
 			<input type="hidden" name="command" value="ADD"/>
-			
+			<p style="color: red;">${errorMessage}</p>
 			<table>
 			
 				
@@ -34,7 +34,7 @@
 					</tr>
 					<tr>
 						<td><label>Người đăng:</label></td>
-						<td><input type="text" name="username" /></td>
+						<td><input type="text" name="username" value="${loginedUser.userName}" /></td>
 					
 					</tr>
 

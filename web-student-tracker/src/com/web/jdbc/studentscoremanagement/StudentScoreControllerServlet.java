@@ -105,7 +105,7 @@ public class StudentScoreControllerServlet extends HttpServlet {
 
 	private void updateScore(HttpServletRequest request, HttpServletResponse response) 
 			throws Exception {
-				
+				try {
 				//read student infor from form data
 				int masv=Integer.parseInt(request.getParameter("studentId"));
 				int scoreid=Integer.parseInt(request.getParameter("scoreId"));
@@ -114,6 +114,13 @@ public class StudentScoreControllerServlet extends HttpServlet {
 //				String gioitinh = request.getParameter("gioitinh");
 //				String diachi = request.getParameter("diachi");
 //				int sotin=Integer.parseInt(request.getParameter("sotin"));
+				
+				if (request.getParameter("dqt").equals("")||request.getParameter("diemthi").equals("")) {
+					String errorMessage = "Không để trống các trường";
+		            request.setAttribute("errorMessage", errorMessage);
+		            loadScore(request, response);
+		            return;
+				}
 				float dqt=Float.parseFloat(request.getParameter("dqt"));
 				float diemthi=Float.parseFloat(request.getParameter("diemthi"));
 				//create a new student object
@@ -124,6 +131,17 @@ public class StudentScoreControllerServlet extends HttpServlet {
 				
 				//send them abck to the "list students" page
 				loadStudent(request, response);
+				}catch(NumberFormatException ex) {
+					String errorMessage = "Không nhập chuỗi cho điểm";
+		            request.setAttribute("errorMessage", errorMessage);
+		            loadScore(request, response);
+		            return;
+				}catch(Exception e) {
+					String errorMessage = "Nhập thông tin không đúng";
+		            request.setAttribute("errorMessage", errorMessage);
+		            loadScore(request, response);
+		            return;
+				}
 			}
 	private void searchStudents(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // read search name from form data

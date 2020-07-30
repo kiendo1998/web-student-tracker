@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 
 /**
  * Servlet implementation class ClassControllerServlet
@@ -113,7 +115,7 @@ public class ClassControllerServlet extends HttpServlet {
 	
 	private void deleteClass(HttpServletRequest request, HttpServletResponse response) 
 	throws Exception {
-	
+	try {
 		// read class id from form data
 		String theClassId = request.getParameter("classId");
 		
@@ -121,6 +123,12 @@ public class ClassControllerServlet extends HttpServlet {
 		classDbUtil.deleteClass(theClassId);
 		//send them back to "list classes" page
 		listClasses(request, response);
+	}catch(MySQLIntegrityConstraintViolationException ex) {
+		String errorMessage = "Lỗi do mã lớp có ràng buộc với sinh viên";
+        request.setAttribute("errorMessage", errorMessage);
+        listClasses(request, response);
+        return;
+        }
 		
 		
 		
@@ -132,10 +140,17 @@ public class ClassControllerServlet extends HttpServlet {
 
 	private void updateClass(HttpServletRequest request, HttpServletResponse response) 
 	throws Exception {
-		
+		try {
 		//read class infor from form data
 		int malop=Integer.parseInt(request.getParameter("classId"));
 		String tenlop = request.getParameter("tenlop");
+		if (tenlop.equals("")||request.getParameter("makhoa").equals("")||request.getParameter("siso").equals("")) {
+			String errorMessage = "Không để trống các trường";
+            request.setAttribute("errorMessage", errorMessage);
+            
+            loadClass(request, response);
+            return;
+		}
 		int makhoa=Integer.parseInt(request.getParameter("makhoa"));
 		String tenkhoa = request.getParameter("tenkhoa");
 		int siso=Integer.parseInt(request.getParameter("siso"));
@@ -147,6 +162,22 @@ public class ClassControllerServlet extends HttpServlet {
 		
 		//send them abck to the "list classes" page
 		listClasses(request, response);
+		}catch(NumberFormatException ex) {
+			String errorMessage = "Không nhập chuỗi cho mã khoa và sĩ số";
+            request.setAttribute("errorMessage", errorMessage);
+            loadClass(request, response);
+            return;
+		}catch(MySQLIntegrityConstraintViolationException ex) {
+			String errorMessage = "Khoa phải có trong danh sách khoa";
+            request.setAttribute("errorMessage", errorMessage);
+            loadClass(request, response);
+            return;
+		}catch(Exception e) {
+			String errorMessage = "Nhập thông tin không đúng";
+            request.setAttribute("errorMessage", errorMessage);
+            loadClass(request, response);
+            return;
+		}
 	}
 
 
@@ -174,10 +205,19 @@ public class ClassControllerServlet extends HttpServlet {
 
 	private void addClass(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
+		try {
 		// read class infor from form data
 		//int masv=Integer.parseInt(request.getParameter("masv"));
 		String tenlop = request.getParameter("tenlop");
+		
+		if (tenlop.equals("")||request.getParameter("makhoa").equals("")||request.getParameter("siso").equals("")) {
+			String errorMessage = "Không để trống các trường";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/ClassControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}
 		int makhoa=Integer.parseInt(request.getParameter("makhoa"));
 		int siso=Integer.parseInt(request.getParameter("siso"));
 		//create a new class object
@@ -187,6 +227,28 @@ public class ClassControllerServlet extends HttpServlet {
 		classDbUtil.addClass(theClass);
 		// send back to main page (the class list)
 		listClasses(request, response);
+		}catch(NumberFormatException ex) {
+			String errorMessage = "Không nhập chuỗi cho mã khoa và sĩ số";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/ClassControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}catch(MySQLIntegrityConstraintViolationException ex) {
+			String errorMessage = "Khoa phải có trong danh sách khoa";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+            		= this.getServletContext().getRequestDispatcher("/ClassControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}catch(Exception e) {
+			String errorMessage = "Nhập thông tin không đúng";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/ClassControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}
 	}
 
 

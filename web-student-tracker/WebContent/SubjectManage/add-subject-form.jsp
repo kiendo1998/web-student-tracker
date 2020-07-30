@@ -18,6 +18,7 @@
 		<form action="SubjectControllerServlet" method="GET">
 
 			<input type="hidden" name="command" value="SADD" />
+			<p style="color: red;">${errorMessage}</p>
 
 			<table>
 

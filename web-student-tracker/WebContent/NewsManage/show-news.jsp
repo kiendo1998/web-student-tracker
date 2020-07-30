@@ -48,7 +48,7 @@
 				<c:forEach var="tempNews" items="${NEWS_LIST}">
 				<!-- set up a link for each class -->
 				<c:url var="tempLink" value="NewsControllerServlet">
-					<c:param name="command" value="LOAD"/>
+					<c:param name="command" value="LOAD1"/>
 					<c:param name="newsId" value="${tempNews.newsid}"/>
 					
 				

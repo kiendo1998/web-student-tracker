@@ -14,7 +14,7 @@
 
  
       <h3>Thông tin người dùng: ${loginedUser.userName}</h3>
- 
+ <p style="color: red;">${errorMessage}</p>
       <form method="GET" action="${pageContext.request.contextPath}/updateuser">
          <input type="hidden" name="username0" value="${loginedUser.userName}" />
          <table border="5" class="user">

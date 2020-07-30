@@ -535,6 +535,67 @@ public int getMaSV(String username) throws SQLException {
 		close(myConn, myStmt, myRs);
 	}
 }
+
+public List<ScoreTable> searchScoretables(String theSearchName)  throws Exception {
+        List<ScoreTable> scoretables = new ArrayList<>();
+        
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+        
+        
+        try {
+            
+            // get connection to database
+            myConn = dataSource.getConnection();
+            
+            //
+            // only search by name if theSearchName is not empty
+            //
+            if (theSearchName != null && theSearchName.trim().length() > 0) {
+                // create sql to search for students by name
+                String sql = "select * from monhoc inner join "
+                		+ "dangky on monhoc.mamh=dangky.mamh "
+                		+ "where lower(tenmh) like ?";
+                // create prepared statement
+                myStmt = myConn.prepareStatement(sql);
+                // set params
+                String theSearchNameLike = "%" + theSearchName.toLowerCase() + "%";
+                myStmt.setString(1, theSearchNameLike);
+          
+                
+            } else {
+                // create sql to get all students
+                String sql = "select * from monhoc inner join dangky on monhoc.mamh=dangky.mamh "
+        				+ " order by madk;";
+                // create prepared statement
+                myStmt = myConn.prepareStatement(sql);
+            }
+            
+            // execute statement
+            myRs = myStmt.executeQuery();
+            
+            // retrieve data from result set row
+            while (myRs.next()) {
+                
+                // retrieve data from result set row
+            	int scoretableid = myRs.getInt("madk");
+    			int mamh = myRs.getInt("MaMH");
+    			String tenmh = myRs.getString("tenmh");
+    			String kyhoc = myRs.getString("KyHoc");
+    			//create new student object
+    			ScoreTable tempScoretable = new ScoreTable(scoretableid, mamh, kyhoc, tenmh);
+                // add it to the list of students
+                scoretables.add(tempScoretable);            
+            }
+            
+            return scoretables;
+        }
+        finally {
+            // clean up JDBC objects
+            close(myConn, myStmt, myRs);
+        }
+    }
 		
 
 }

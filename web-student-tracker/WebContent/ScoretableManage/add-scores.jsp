@@ -23,6 +23,7 @@
 		<div id="content">
 	<br/>
 		<h3>Thêm điểm sinh viên</h3>
+		<p style="color: red;">${errorMessage}</p>
 <!-- 		<form action="ScoreTableControllerServlet" method="GET"> -->
         
 <!--                 <input type="hidden" name="command" value="LOAD1" /> -->

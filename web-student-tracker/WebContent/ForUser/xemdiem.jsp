@@ -21,7 +21,7 @@
 	
 	<div id="container">
 		<div id="content">
-		 <!--  add a search box -->
+		 <input style="float:right" type="submit" value="In bảng điểm" onClick="window.print()"/>
       <h3>Xem điểm</h3>
 			<form action="UserServlet" method="GET">
 			<input type="hidden" name="command" value="XD" />

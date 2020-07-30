@@ -71,14 +71,19 @@ public class UserUpdateServlet extends HttpServlet {
 		String username0 = request.getParameter("username0");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		//create a new student object
-		UserAccount theClass = new UserAccount(username,password);
-		theClass.setUserName0(username0);
-		//perform update on database
-		userUtil.updateUser(theClass);
-		
-		//send them abck to the "list classes" page
-		response.sendRedirect("create");
+		if (username.equals("")||password.equals("")) {
+			String errorMessage = "Không để trống các trường";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/userInfo");
+            dispatcher.forward(request, response);
+            return;
+		}
+		UserAccount userAccount = new UserAccount(username,password);
+		userAccount.setUserName0(username0);
+		userUtil.updateUser(userAccount);
+		//trong datadao
+		response.sendRedirect("create?command=UPDATE");
 	}
 
 

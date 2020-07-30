@@ -5,7 +5,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Nhập điểm</title>
+<title>Quản lý bảng điểm</title>
 <link rel="icon" href="images/LOGO_DHXD.png" type="image/gif" sizes="16x16">
 
 <link type="text/css" rel="stylesheet" href="css/style.css">
@@ -21,18 +21,18 @@
 	
 	<div id="container">
 		<div id="content">
-		<!-- put new button: Add new student -->
+
 		 <!--  add a search box -->
             <form action="UserServlet" method="GET">
         
-                <input type="hidden" name="command" value="SEARCHND" />
+                <input type="hidden" name="command" value="SEARCH" />
             
                 <font color="black">Tìm kiếm theo tên môn học:</font><input type="text" name="theSearchName"/>
                 
                 <input type="submit" value="Tìm kiếm" class="add-student-button" />
             
             </form>
-      <h3>Danh sách bảng điểm</h3>
+            <h3>Kết quả tìm kiếm</h3>
 			<table>
 			
 				<tr>
@@ -40,34 +40,23 @@
 					<th>Mã Môn Học</th>
 					<th>Tên Môn Học</th>
 					<th>Kỳ Học</th>
-					<th>Hành động</th>
 				</tr>
 				
-				<c:forEach var="tempScoretable" items="${SCORETABLE_LIST}">
-				<!-- set up a link for each student -->
-				<c:url var="tempLink" value="UserServlet">
-					<c:param name="command" value="LOAD"/>
-					<c:param name="scoretableId" value="${tempScoretable.scoretableid}"/>
-					
-				
-				</c:url>
-				<!-- set up a link for delete a student -->
+				<c:forEach var="tempScoretable" items="${SEARCH_LIST}">
 				<tr>
 					<td>${tempScoretable.scoretableid}</td>
 					<td>${tempScoretable.mamh}</td>
 					<td>${tempScoretable.tenmh}</td>
 					<td>${tempScoretable.kyhoc}</td>
-					<td>
-<%-- 						<a href="${tempLink}">Cập nhật</a> --%>
-<!-- 						| -->
-						<a href="${tempLink}">Nhập điểm</a>
-					</td>
 				</tr>
-				
 			</c:forEach>
+			
 			</table>
+      
 		</div>
-	
+	<p>
+		<a href="UserServlet?command=DKMH&username=${loginedUser.userName}">Trở về</a>
+		</p>
 	</div>
 
 <jsp:include page="../my-footer.jsp"/>

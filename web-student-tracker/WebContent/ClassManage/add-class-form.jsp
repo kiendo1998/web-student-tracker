@@ -15,6 +15,7 @@
 			
 	<div id="container">
 		<h3>Thêm lớp</h3>
+		<p style="color: red;">${errorMessage}</p>
 		<form action="ClassControllerServlet" method="GET">
 		
 			<input type="hidden" name="command" value="ADD"/>

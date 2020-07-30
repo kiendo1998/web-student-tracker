@@ -2,6 +2,7 @@ package com.web.jdbc.studentmanagement;
 
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -132,7 +133,7 @@ public class StudentControllerServlet extends HttpServlet {
 
 	private void updateStudent(HttpServletRequest request, HttpServletResponse response) 
 	throws Exception {
-		
+		try {
 		//read student infor from form data
 		int masv=Integer.parseInt(request.getParameter("studentId"));
 		String tensv = request.getParameter("tensv");
@@ -144,12 +145,33 @@ public class StudentControllerServlet extends HttpServlet {
 		
 		//create a new student object
 		Student theStudent = new Student( masv,tensv, ngaysinh, gioitinh, diachi, malop, sdt);
-		
+		if (tensv.equals("")||ngaysinh.equals("")||gioitinh.equals("")||diachi.equals("")||sdt.equals("")) {
+			String errorMessage = "Không để trống các trường";
+            request.setAttribute("errorMessage", errorMessage);
+            loadStudent(request, response);
+            return;
+		}
 		//perform update on database
 		studentDbUtil.updateStudent(theStudent);
 		
 		//send them back to the "list students" page
 		listStudents(request, response);
+		}catch(NumberFormatException ex) {
+			String errorMessage = "Không để trống hoặc nhập chuỗi cho mã lớp";
+            request.setAttribute("errorMessage", errorMessage);
+            loadStudent(request, response);
+            return;
+		}catch(SQLException e) {
+			String errorMessage = "Nhập ngày sinh dạng yyyy-mm-dd";
+            request.setAttribute("errorMessage", errorMessage);
+            loadStudent(request, response);
+            return;
+		}catch(Exception e) {
+			String errorMessage = "Nhập thông tin không đúng";
+            request.setAttribute("errorMessage", errorMessage);
+            loadStudent(request, response);
+            return;
+		}
 	}
 
 
@@ -177,7 +199,7 @@ public class StudentControllerServlet extends HttpServlet {
 
 	private void addStudent(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
+		try {
 		// read student infor from form data
 		//int masv=Integer.parseInt(request.getParameter("masv"));
 		String tensv = request.getParameter("tensv");
@@ -187,14 +209,45 @@ public class StudentControllerServlet extends HttpServlet {
 		String diachi = request.getParameter("diachi");
 		int malop=Integer.parseInt(request.getParameter("malop"));
 		String sdt = request.getParameter("sdt");
-		
 		//create a new student object
 		Student theStudent = new Student(tensv, ngaysinh, gioitinh, diachi,malop,sdt);
 		
 		// add the student to the database
-		studentDbUtil.addStudent(theStudent);
+		
 		// send back to main page (the student list)
+		
+		if (tensv.equals("")||ngaysinh.equals("")||gioitinh.equals("")||diachi.equals("")||sdt.equals("")) {
+			String errorMessage = "Không để trống các trường";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/StudentControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}
+		studentDbUtil.addStudent(theStudent);
 		listStudents(request, response);
+		}catch(NumberFormatException ex) {
+			String errorMessage = "Không để trống hoặc nhập chuỗi cho mã lớp";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/StudentControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}catch(SQLException e) {
+			String errorMessage = "Nhập ngày sinh dạng yyyy-mm-dd";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/StudentControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}catch(Exception e) {
+			String errorMessage = "Nhập thông tin không đúng";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/StudentControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}
 	}
 
 

@@ -30,8 +30,7 @@
                 <font color="black">Tìm kiếm theo tên môn học:</font><input type="text" name="theSearchName"/>
                 
                 <input type="submit" value="Tìm kiếm" class="add-student-button" />
-            
-            </form>
+        
       <h3>Danh sách lớp môn học đã đăng ký</h3>
 			<table>
 			

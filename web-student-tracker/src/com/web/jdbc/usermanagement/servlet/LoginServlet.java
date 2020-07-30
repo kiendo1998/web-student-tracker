@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
         UserAccount userAccount = DataDAO.findUser(userName, password);
  
         if (userAccount == null) {
-            String errorMessage = "Invalid userName or Password";
+            String errorMessage = "Sai tên đăng nhập hoặc mật khẩu";
  
             request.setAttribute("errorMessage", errorMessage);
  
@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             // Mặc định sau khi đăng nhập thành công
             // chuyển hướng về trang /userInfo
-            response.sendRedirect(request.getContextPath() + "/userInfo");
+            response.sendRedirect(request.getContextPath() + "/");
         }
  
     }

@@ -14,6 +14,7 @@
 			
 	<div id="container">
 		<h3>Sửa thông tin điểm sinh viên</h3>
+		 <p style="color: red;">${errorMessage}</p>
 		<form action="StudentScoreControllerServlet" method="GET">
 		
 			<input type="hidden" name="command" value="UPDATE1"/>

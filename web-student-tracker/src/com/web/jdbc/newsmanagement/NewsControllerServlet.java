@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 
 /**
  * Servlet implementation class ClassControllerServlet
@@ -72,6 +74,9 @@ public class NewsControllerServlet extends HttpServlet {
 				break;
 			case "LOAD":
 				loadNews(request,response);
+				break;
+			case "LOAD1":
+				loadNews1(request,response);
 				break;
 			case "UPDATE":
 				updateNews(request, response);
@@ -135,12 +140,18 @@ public class NewsControllerServlet extends HttpServlet {
 
 	private void updateNews(HttpServletRequest request, HttpServletResponse response) 
 	throws Exception {
-		
+		try {
 		//read class infor from form data
 		int newsid=Integer.parseInt(request.getParameter("newsId"));
 		String newstitle = request.getParameter("newstitle");
 		String newscontent=request.getParameter("newscontent");
 		String username = request.getParameter("username");
+		if (newstitle.equals("")||newscontent.equals("")||username.equals("")) {
+			String errorMessage = "Không để trống các trường";
+            request.setAttribute("errorMessage", errorMessage);
+            loadNews(request,response);
+            return;
+		}
 		//create a new student object
 		News theNews = new News(newsid, newstitle, newscontent, username);
 		
@@ -149,6 +160,17 @@ public class NewsControllerServlet extends HttpServlet {
 		
 		//send them abck to the "list classes" page
 		listNewses(request, response);
+		}catch(MySQLIntegrityConstraintViolationException ex) {
+			String errorMessage = "Phải nhập username hợp lệ";
+            request.setAttribute("errorMessage", errorMessage);
+            loadNews(request,response);
+            return;
+		}catch(Exception e) {
+			String errorMessage = "Nhập thông tin không đúng";
+            request.setAttribute("errorMessage", errorMessage);
+            loadNews(request,response);
+            return;
+		}
 	}
 
 
@@ -169,6 +191,20 @@ public class NewsControllerServlet extends HttpServlet {
 				request.getRequestDispatcher("NewsManage/update-news-form.jsp");
 		dispatcher.forward(request, response);
 	}
+	private void loadNews1(HttpServletRequest request, HttpServletResponse response) 
+			throws Exception{
+				
+				//read class id from form data
+				String theNewsId = request.getParameter("newsId");
+				//get class from database (db util)
+				News theNews = newsDbUtil.getNews(theNewsId);
+				//place class in the request attribute
+				request.setAttribute("THE_NEWS", theNews);
+				//send to jsp page: update-class-form.jsp
+				RequestDispatcher dispatcher = 
+						request.getRequestDispatcher("NewsManage/detail-news.jsp");
+				dispatcher.forward(request, response);
+			}
 
 
 
@@ -176,12 +212,20 @@ public class NewsControllerServlet extends HttpServlet {
 
 	private void addNews(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
+		try {
 		// read class infor from form data
 		//int masv=Integer.parseInt(request.getParameter("masv"));
 		String newstitle = request.getParameter("newstitle");
 		String newscontent = request.getParameter("newscontent");
 		String username = request.getParameter("username");
+		if (newstitle.equals("")||newscontent.equals("")||username.equals("")) {
+			String errorMessage = "Không để trống các trường";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/NewsControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}
 		//create a new class object
 		News theNews = new News(newstitle, newscontent, username);
 		
@@ -189,6 +233,21 @@ public class NewsControllerServlet extends HttpServlet {
 		newsDbUtil.addNews(theNews);
 		// send back to main page (the class list)
 		listNewses(request, response);
+		}catch(MySQLIntegrityConstraintViolationException ex) {
+			String errorMessage = "Phải nhập username hợp lệ";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+            = this.getServletContext().getRequestDispatcher("/NewsControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}catch(Exception e) {
+			String errorMessage = "Nhập thông tin không đúng";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/NewsControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}
 	}
 
 

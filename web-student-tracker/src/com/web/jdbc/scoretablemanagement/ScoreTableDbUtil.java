@@ -83,13 +83,16 @@ public class ScoreTableDbUtil {
 			//get db connection
 			myConn = dataSource.getConnection();
 			//create sql for insert
-			String sql = "insert into dangky(mamh,kyhoc) "
-			+ "value (?, ?)"	;	
+			String sql = "insert into dangky(mamh,kyhoc,magv,lichhoc) "
+			+ "value (?, ?,?,?)"	;	
 			myStmt = myConn.prepareStatement(sql);
 			//set the param values for the student
 			//myStmt.setInt(1, theStudent.getMasv());
 			myStmt.setInt(1, theScoretable.getMamh());
+			
 			myStmt.setString(2, theScoretable.getKyhoc());
+			myStmt.setInt(3, theScoretable.getMagv());
+			myStmt.setString(4, theScoretable.getLichhoc());
 
 			//execute sql insert
 			myStmt.execute();

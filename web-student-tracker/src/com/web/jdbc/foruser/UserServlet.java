@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.web.jdbc.scoretablemanagement.Score;
 import com.web.jdbc.scoretablemanagement.ScoreTable;
 import com.web.jdbc.studentscoremanagement.StudentScore;
@@ -93,6 +94,12 @@ public class UserServlet extends HttpServlet {
 			case "LIST1":
 				listScores(request,response);
 				break;
+			case "SEARCH":
+				searchRegisterClass(request,response);
+				break;
+			case "SEARCHND":
+				searchND(request,response);
+				break;
 			}
 				xemTKB(request, response);
 		}
@@ -144,9 +151,17 @@ public class UserServlet extends HttpServlet {
 			}
 	private void addScores(HttpServletRequest request, HttpServletResponse response) 
 			throws Exception {
-				
+		try {
 		//read student infor from form data
 		int scoretableid=Integer.parseInt(request.getParameter("scoretableId"));
+		if (request.getParameter("masv").equals("")||request.getParameter("dqt").equals("")||request.getParameter("diemthi").equals("")) {
+			String errorMessage = "Không để trống các trường";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/UserServlet?command=LOAD");
+            dispatcher.forward(request, response);
+            return;
+		}
 		int masv=Integer.parseInt(request.getParameter("masv"));
 		float dqt=Float.parseFloat(request.getParameter("dqt"));
 		float diemthi=Float.parseFloat(request.getParameter("diemthi"));
@@ -160,8 +175,30 @@ public class UserServlet extends HttpServlet {
 //		loadScore(request, response);
 //	listScores(request, response);
 	loadScore(request, response);
+		}catch(NumberFormatException ex) {
+			String errorMessage = "Không nhập chuỗi cho điểm, mã sinh viên";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/UserServlet?command=LOAD");
+            dispatcher.forward(request, response);
+            return;
+		}catch(MySQLIntegrityConstraintViolationException ex) {
+			String errorMessage = "Mã sinh viên phải có trong danh sách sinh viên";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+            		= this.getServletContext().getRequestDispatcher("/UserServlet?command=LOAD");
+            dispatcher.forward(request, response);
+            return;
+		}catch(Exception e) {
+			String errorMessage = "Nhập thông tin không đúng";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/UserServlet?command=LOAD");
+            dispatcher.forward(request, response);
+            return;
+		}
 
-			}
+}
 	private void loadScore(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		//read student id from form data
@@ -217,6 +254,34 @@ public class UserServlet extends HttpServlet {
 //			listScores(request, response);
 				listRegistedScoreTable(request, response);
 		}
+	private void searchRegisterClass(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // read search name from form data
+        String theSearchName = request.getParameter("theSearchName");
+        
+        // search students from db util
+        List<ScoreTable> scoretables = userUtil.searchScoretables(theSearchName);
+        
+        // add students to the request
+        request.setAttribute("SEARCH_LIST", scoretables);
+                
+        // send to JSP page (view)
+        RequestDispatcher dispatcher = request.getRequestDispatcher("RegisterForStudent/search-scoretables.jsp");
+        dispatcher.forward(request, response);
+    }
+	private void searchND(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // read search name from form data
+        String theSearchName = request.getParameter("theSearchName");
+        
+        // search students from db util
+        List<ScoreTable> scoretables = userUtil.searchScoretables(theSearchName);
+        
+        // add students to the request
+        request.setAttribute("SCORETABLE_LIST", scoretables);
+                
+        // send to JSP page (view)
+        RequestDispatcher dispatcher = request.getRequestDispatcher("InputScoreForLecturer/list-scoretables.jsp");
+        dispatcher.forward(request, response);
+    }
 
 
 }

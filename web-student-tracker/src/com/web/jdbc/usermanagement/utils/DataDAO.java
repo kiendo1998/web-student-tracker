@@ -96,6 +96,9 @@ public class DataDAO extends HttpServlet {
 			case "LIST":
 				initUsers(request, response);
 				break;
+			case "UPDATE":
+				initUsers1(request, response);
+				break;
 			}
 		// list the sudents ... in MVC fashion
 			initUsers(request, response);
@@ -111,6 +114,7 @@ public class DataDAO extends HttpServlet {
 		try {
     		List<UserAccount> accounts = new ArrayList<>();
     		accounts = userUtil.getAccounts();
+    		mapUsers.clear();
     		for (int i = 0; i < accounts.size();i++) { 		      
     			UserAccount userAccount = accounts.get(i);
     			mapUsers.put(userAccount.getUserName(), userAccount);
@@ -121,6 +125,23 @@ public class DataDAO extends HttpServlet {
 			exc.printStackTrace();
 		}
 	}
+	private void initUsers1(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+				
+				try {
+		    		List<UserAccount> accounts = new ArrayList<>();
+		    		accounts = userUtil.getAccounts();
+		    		mapUsers.clear();
+		    		for (int i = 0; i < accounts.size();i++) { 		      
+		    			UserAccount userAccount = accounts.get(i);
+		    			mapUsers.put(userAccount.getUserName(), userAccount);
+		    			
+		            }  
+		    		response.sendRedirect("logout");
+		    	}catch (Exception exc) {
+					exc.printStackTrace();
+				}
+			}
 	
 	
   private static final Map<String, UserAccount> mapUsers = new HashMap<String, UserAccount>();

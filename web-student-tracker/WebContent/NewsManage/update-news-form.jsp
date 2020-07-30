@@ -14,6 +14,7 @@
 			
 	<div id="container">
 		<h3>Sửa tin tức</h3>
+		<p style="color: red;">${errorMessage}</p>
 		<form action="NewsControllerServlet" method="GET">
 		
 			<input type="hidden" name="command" value="UPDATE"/>

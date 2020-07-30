@@ -18,6 +18,7 @@
 		<form action="StudentControllerServlet" method="GET">
 		
 			<input type="hidden" name="command" value="ADD"/>
+			<p style="color: red;">${errorMessage}</p>
 			
 			<table>
 			

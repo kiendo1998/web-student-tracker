@@ -18,7 +18,7 @@
 		<form action="ScoreTableControllerServlet" method="GET">
 		
 			<input type="hidden" name="command" value="ADD"/>
-			
+			<p style="color: red;">${errorMessage}</p>
 			<table>
 			
 				
@@ -30,6 +30,16 @@
 					<tr>
 						<td><label>Kỳ Học:</label></td>
 						<td><input type="text" name="kyhoc" /></td>
+					
+					</tr>
+					<tr>
+						<td><label>Mã giáo viên:</label></td>
+						<td><input type="text" name="magv" /></td>
+					
+					</tr>
+					<tr>
+						<td><label>Lịch học:</label></td>
+						<td><input type="text" name="lichhoc" /></td>
 					
 					</tr>
 					<tr>

@@ -37,6 +37,7 @@
             
             </form>
             <h3>Danh sách lớp trong hệ thống</h3>
+            <p style="color: red;">${errorMessage}</p>
 			<table>
 			
 				<tr>

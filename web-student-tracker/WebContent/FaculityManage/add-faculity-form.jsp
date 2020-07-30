@@ -15,6 +15,7 @@
 			
 	<div id="container">
 		<h3>Thêm khoa</h3>
+		<p style="color: red;">${errorMessage}</p>
 		<form action="FaculityControllerServlet" method="GET">
 		
 			<input type="hidden" name="command" value="ADD"/>

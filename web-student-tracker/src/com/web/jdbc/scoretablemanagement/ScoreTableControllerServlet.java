@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 
 /**
  * Servlet implementation class StudentControllerServlet
@@ -185,18 +187,50 @@ public class ScoreTableControllerServlet extends HttpServlet {
 
 	private void addScoretable(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
+		try {
 		// read student infor from form data
 		//int masv=Integer.parseInt(request.getParameter("masv"));
+			if (request.getParameter("mamh").equals("")||request.getParameter("magv").equals("")||request.getParameter("kyhoc").equals("")||request.getParameter("lichhoc").equals("")) {
+				String errorMessage = "Không để trống các trường";
+	            request.setAttribute("errorMessage", errorMessage);
+	            RequestDispatcher dispatcher //
+	                    = this.getServletContext().getRequestDispatcher("/ScoreTableControllerServlet?command=SHOW");
+	            dispatcher.forward(request, response);
+	            return;
+			}
 		int maMH=Integer.parseInt(request.getParameter("mamh"));
+		int maGV=Integer.parseInt(request.getParameter("magv"));
 		String kyHoc = request.getParameter("kyhoc");
+		String LichHoc = request.getParameter("lichhoc");
 		
-		ScoreTable theScoretable = new ScoreTable(maMH, kyHoc);
+		ScoreTable theScoretable = new ScoreTable(maMH, kyHoc, maGV, LichHoc);
 		
 		// add the student to the database
 		scoretableDbUtil.addScoretable(theScoretable);
 		// send back to main page (the student list)
 		listScoretables(request, response);
+		}catch(NumberFormatException ex) {
+			String errorMessage = "Không nhập chuỗi cho mã môn học và mã giảng viên";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/ScoreTableControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}catch(MySQLIntegrityConstraintViolationException ex) {
+			String errorMessage = "Mã môn học, mã giảng viên, kỳ học phải có trong danh sách";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+            		= this.getServletContext().getRequestDispatcher("/ScoreTableControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}catch(Exception e) {
+			String errorMessage = "Nhập thông tin không đúng";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/ClassControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}
 	}
 
 
@@ -223,14 +257,45 @@ public class ScoreTableControllerServlet extends HttpServlet {
 			}
 	
 	private void addScores(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
 				int scoretableid=Integer.parseInt(request.getParameter("scoretableId"));
+				if (request.getParameter("masv").equals("")||request.getParameter("dqt").equals("")||request.getParameter("diemthi").equals("")) {
+					String errorMessage = "Không để trống các trường";
+		            request.setAttribute("errorMessage", errorMessage);
+		            RequestDispatcher dispatcher //
+		                    = this.getServletContext().getRequestDispatcher("/ScoreTableControllerServlet?command=LOAD");
+		            dispatcher.forward(request, response);
+		            return;
+				}
 				int masv=Integer.parseInt(request.getParameter("masv"));
 				float dqt=Float.parseFloat(request.getParameter("dqt"));
 				float diemthi=Float.parseFloat(request.getParameter("diemthi"));
 				Score theScore = new Score(scoretableid,masv, dqt, diemthi);
 				scoretableDbUtil.addScore(theScore);
 			loadScore(request, response);
-			}
+		}catch(NumberFormatException ex) {
+			String errorMessage = "Không nhập chuỗi cho điểm, mã sinh viên";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/ScoreTableControllerServlet?command=LOAD");
+            dispatcher.forward(request, response);
+            return;
+		}catch(MySQLIntegrityConstraintViolationException ex) {
+			String errorMessage = "Mã sinh viên phải có trong danh sách sinh viên";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+            		= this.getServletContext().getRequestDispatcher("/ScoreTableControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}catch(Exception e) {
+			String errorMessage = "Nhập thông tin không đúng";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/ClassControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}
+	}
 	private void loadScore(HttpServletRequest request, HttpServletResponse response) throws Exception{
 				
 				//read student id from form data

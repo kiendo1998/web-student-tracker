@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 
 /**
  * Servlet implementation class StudentControllerServlet
@@ -114,6 +116,7 @@ public class FaculityControllerServlet extends HttpServlet {
 	private void deleteFaculity(HttpServletRequest request, HttpServletResponse response) 
 	throws Exception {
 	
+		try {
 		// read student id from form data
 		String theFaculityId = request.getParameter("faculityId");
 		
@@ -121,6 +124,12 @@ public class FaculityControllerServlet extends HttpServlet {
 		faculityDbUtil.deleteFaculity(theFaculityId);
 		//send them back to "list students" page
 		listFaculities(request, response);
+		}catch(MySQLIntegrityConstraintViolationException ex) {
+			String errorMessage = "Không thể xóa do khoa có ràng buộc với lớp";
+            request.setAttribute("errorMessage", errorMessage);
+            listFaculities(request, response);
+            return;
+		}
 		
 		
 		
@@ -132,12 +141,17 @@ public class FaculityControllerServlet extends HttpServlet {
 
 	private void updateFaculity(HttpServletRequest request, HttpServletResponse response) 
 	throws Exception {
-		
+		try {
 		//read student infor from form data
 		int makhoa=Integer.parseInt(request.getParameter("faculityId"));
 		String tenkhoa = request.getParameter("tenkhoa");
 		String sdt = request.getParameter("sdt");
-		
+		if (tenkhoa.equals("")||sdt.equals("")) {
+			String errorMessage = "Không để trống các trường";
+            request.setAttribute("errorMessage", errorMessage);
+            loadFaculity(request, response);
+            return;
+		}
 		//create a new student object
 		Faculity theFaculity = new Faculity(makhoa, tenkhoa, sdt);
 		
@@ -146,6 +160,12 @@ public class FaculityControllerServlet extends HttpServlet {
 		
 		//send them abck to the "list students" page
 		listFaculities(request, response);
+		}catch(Exception e) {
+			String errorMessage = "Nhập thông tin không đúng";
+            request.setAttribute("errorMessage", errorMessage);
+            loadFaculity(request, response);
+            return;
+		}
 	}
 
 
@@ -173,20 +193,28 @@ public class FaculityControllerServlet extends HttpServlet {
 
 	private void addFaculity(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
-		// read student infor from form data
-		//int masv=Integer.parseInt(request.getParameter("masv"));
+		try {
 		String tenkhoa = request.getParameter("tenkhoa");
 		String sdt = request.getParameter("sdt");
-		
-		
-		//create a new student object
+		if (tenkhoa.equals("")||sdt.equals("")) {
+			String errorMessage = "Không để trống các trường";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/FaculityControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}
 		Faculity theFaculity = new Faculity(tenkhoa,sdt);
-		
-		// add the student to the database
 		faculityDbUtil.addFaculity(theFaculity);
-		// send back to main page (the student list)
 		listFaculities(request, response);
+		}catch(Exception e) {
+			String errorMessage = "Nhập thông tin không đúng";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/FaculityControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}
 	}
 
 

@@ -37,6 +37,7 @@
             
             </form>
             <h3>Danh sách môn học</h3>
+            <p style="color: red;">${errorMessage}</p>
 			<table>
 			
 				<tr>

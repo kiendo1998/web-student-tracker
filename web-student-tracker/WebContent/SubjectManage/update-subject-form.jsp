@@ -14,6 +14,7 @@
 	 
 	<div id="container">
 		<h3>Sửa thông tin môn học</h3>
+		<p style="color: red;">${errorMessage}</p>
 		<form action="SubjectControllerServlet" method="GET">
 
 			<input type="hidden" name="command" value="SUPDATE" /> <input

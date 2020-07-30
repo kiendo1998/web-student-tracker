@@ -1,6 +1,7 @@
 package com.web.jdbc.subjectmanagement;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 
 
 /**
@@ -110,30 +114,54 @@ public class SubjectControllerServlet extends HttpServlet {
 
 	private void deleteSubject(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// read subject id from form data
+		try {
 				String theSubjectId = request.getParameter("subjectId");
 				
 				//delete subject from database
 				subjectDbUtil.deleteSubject(theSubjectId);
 				//send them back to "list subjects" page
 				listSubjects(request, response);
+		}catch(MySQLIntegrityConstraintViolationException ex) {
+			String errorMessage = "Không xóa được do có ràng buộc ở lớp môn học";
+            request.setAttribute("errorMessage", errorMessage);
+            listSubjects(request, response);
+            return;
+		}
 		
 	}
 
 	private void updateSubject(HttpServletRequest request, HttpServletResponse response) 
 	throws Exception {
-		//read subject infor from form data
-				int mamh=Integer.parseInt(request.getParameter("subjectId"));
+		try {
+				//read subject infor from form data	
+			int mamh=Integer.parseInt(request.getParameter("subjectId"));
 				String tenmh = request.getParameter("tenmh");
-				int sotc=Integer.parseInt(request.getParameter("sotc"));
-				
 				//create a new subject object
-				Subject theSubject = new Subject(mamh, tenmh, sotc);
+				if (tenmh.equals("")||request.getParameter("sotc").equals("")) {
+					String errorMessage = "Không để trống các trường";
+		            request.setAttribute("errorMessage", errorMessage);
+		            loadSubject(request,response);
+		            return;
+				}
 				
+				int sotc=Integer.parseInt(request.getParameter("sotc"));
+				Subject theSubject = new Subject(mamh, tenmh, sotc);
 				//perform update on database
 				subjectDbUtil.updateSubject(theSubject);
 				
 				//send them abck to the "list students" page
 				listSubjects(request, response);
+		}catch(NumberFormatException ex) {
+			String errorMessage = "Không nhập chuỗi cho số tín chỉ";
+            request.setAttribute("errorMessage", errorMessage);
+            loadSubject(request,response);
+            return;
+		}catch(Exception e) {
+			String errorMessage = "Nhập thông tin không đúng";
+            request.setAttribute("errorMessage", errorMessage);
+            loadSubject(request,response);
+            return;
+		}
 		
 	}
 
@@ -154,17 +182,38 @@ public class SubjectControllerServlet extends HttpServlet {
 
 	private void addSubject(HttpServletRequest request, HttpServletResponse response) 
 	throws Exception{
-		// read subject infor from form data
-		String tenmh = request.getParameter("tenmh");
-		int sotc=Integer.parseInt(request.getParameter("sotc"));
-				
-				//create a new subject object
-				Subject theSubject = new Subject(tenmh, sotc);
-				
-				// add the subject to the database
-				subjectDbUtil.addSubject(theSubject);
-				// send back to main page (the subject list)
-				listSubjects(request, response);
+		try {
+			// read subject infor from form data
+			String tenmh = request.getParameter("tenmh");
+			if (tenmh.equals("")||request.getParameter("sotc").equals("")) {
+				String errorMessage = "Không để trống các trường";
+	            request.setAttribute("errorMessage", errorMessage);
+	            RequestDispatcher dispatcher //
+	                    = this.getServletContext().getRequestDispatcher("/SubjectControllerServlet?command=SHOW");
+	            dispatcher.forward(request, response);
+	            return;
+			}
+			int sotc=Integer.parseInt(request.getParameter("sotc"));	
+			//create a new subject object
+			Subject theSubject = new Subject(tenmh, sotc);
+			subjectDbUtil.addSubject(theSubject);
+			// send back to main page (the subject list)
+			listSubjects(request, response);
+		}catch(NumberFormatException ex) {
+			String errorMessage = "Không nhập chuỗi cho số tín chỉ";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/SubjectControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}catch(Exception e) {
+			String errorMessage = "Nhập thông tin không đúng";
+            request.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher //
+                    = this.getServletContext().getRequestDispatcher("/SubjectControllerServlet?command=SHOW");
+            dispatcher.forward(request, response);
+            return;
+		}
 		
 	}
 
